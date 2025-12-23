@@ -1,0 +1,57 @@
+---
+interface Props {
+  title: string;
+  authors: string;
+  venue: string;
+  year: string;
+  link?: string;
+  type?: 'paper' | 'preprint' | 'workshop';
+}
+
+const { title, authors, venue, year, link, type = 'paper' } = Astro.props;
+
+const typeColors = {
+  paper: 'bg-pixel-green',
+  preprint: 'bg-pixel-orange',
+  workshop: 'bg-caramel'
+};
+
+const typeLabels = {
+  paper: 'PAPER',
+  preprint: 'PREPRINT',
+  workshop: 'WORKSHOP'
+};
+---
+
+<article class="group relative bg-mocha-surface border-l-4 border-mocha-subtle hover:border-caramel p-6 transition-all duration-200">
+  <!-- Type badge -->
+  <div class="flex items-center gap-3 mb-3">
+    <span class={`text-pixel text-[8px] px-2 py-1 ${typeColors[type]} text-mocha-base`}>
+      {typeLabels[type]}
+    </span>
+    <span class="text-pixel text-[10px] text-mocha-subtle">{year}</span>
+  </div>
+
+  <!-- Title -->
+  {link ? (
+    <a href={link} target="_blank" rel="noopener noreferrer" class="block">
+      <h3 class="text-base font-semibold text-warm-white group-hover:text-caramel transition-colors mb-2 font-sans">
+        {title}
+      </h3>
+    </a>
+  ) : (
+    <h3 class="text-base font-semibold text-warm-white mb-2 font-sans">
+      {title}
+    </h3>
+  )}
+
+  <!-- Authors -->
+  <p class="text-sm text-cream/80 mb-2">{authors}</p>
+
+  <!-- Venue -->
+  <p class="text-sm text-caramel italic">{venue}</p>
+
+  <!-- Hover decoration -->
+  <div class="absolute top-0 right-0 w-2 h-2 bg-caramel opacity-0 group-hover:opacity-100 transition-opacity"></div>
+  <div class="absolute bottom-0 right-0 w-2 h-2 bg-caramel opacity-0 group-hover:opacity-100 transition-opacity"></div>
+</article>

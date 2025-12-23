@@ -1,0 +1,240 @@
+/* Google Fonts - Pixel font for headings */
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Inter:wght@300;400;500;600&display=swap');
+
+@import "tailwindcss";
+
+/* ============================================
+   MOCHA PIXEL ACADEMIA - Global Styles
+   ============================================ */
+
+/* ============================================
+   CSS Custom Properties (Mocha Palette)
+   ============================================ */
+@theme {
+  /* Catppuccin Mocha - Popular Dark Palette */
+  --color-mocha-base: #1e1e2e;
+  --color-mocha-surface: #313244;
+  --color-mocha-overlay: #45475a;
+  --color-mocha-subtle: #585b70;
+
+  /* Catppuccin Accent Colors */
+  --color-caramel: #f9e2af;
+  --color-caramel-light: #f5c2e7;
+  --color-cream: #cdd6f4;
+  --color-warm-white: #cdd6f4;
+  --color-pixel-orange: #fab387;
+  --color-pixel-green: #a6e3a1;
+
+  /* Fonts */
+  --font-pixel: 'Press Start 2P', monospace;
+  --font-body: 'Inter', system-ui, sans-serif;
+}
+
+/* ============================================
+   Base Styles
+   ============================================ */
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--font-body);
+  background-color: var(--color-mocha-base);
+  color: var(--color-warm-white);
+  line-height: 1.7;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Pixel font for headings */
+h1, h2, h3 {
+  font-family: var(--font-pixel);
+}
+
+/* ============================================
+   Dot Grid Background Pattern
+   ============================================ */
+.dot-grid {
+  background-image: radial-gradient(
+    circle,
+    var(--color-mocha-subtle) 1px,
+    transparent 1px
+  );
+  background-size: 24px 24px;
+}
+
+/* ============================================
+   Pixel-style Decorations
+   ============================================ */
+.pixel-border {
+  box-shadow:
+    4px 0 0 0 var(--color-caramel),
+    -4px 0 0 0 var(--color-caramel),
+    0 4px 0 0 var(--color-caramel),
+    0 -4px 0 0 var(--color-caramel);
+}
+
+.pixel-underline {
+  position: relative;
+}
+
+.pixel-underline::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: -8px;
+  width: 100%;
+  height: 4px;
+  background: repeating-linear-gradient(
+    to right,
+    var(--color-caramel) 0px,
+    var(--color-caramel) 8px,
+    transparent 8px,
+    transparent 12px
+  );
+}
+
+/* ============================================
+   Retro Cursor Blink
+   ============================================ */
+.cursor-blink::after {
+  content: '_';
+  animation: blink 1s step-end infinite;
+  color: var(--color-pixel-orange);
+}
+
+@keyframes blink {
+  0%, 50% { opacity: 1; }
+  51%, 100% { opacity: 0; }
+}
+
+/* ============================================
+   Pixel Hover Effects
+   ============================================ */
+.pixel-hover {
+  transition: all 0.1s steps(3);
+}
+
+.pixel-hover:hover {
+  transform: translate(-2px, -2px);
+  box-shadow:
+    4px 4px 0 0 var(--color-caramel);
+}
+
+/* ============================================
+   Section Divider (Pixel Style)
+   ============================================ */
+.section-divider {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 2rem 0;
+}
+
+.section-divider::before,
+.section-divider::after {
+  content: '';
+  height: 4px;
+  flex: 1;
+  max-width: 100px;
+  background: repeating-linear-gradient(
+    to right,
+    var(--color-mocha-subtle) 0px,
+    var(--color-mocha-subtle) 8px,
+    transparent 8px,
+    transparent 16px
+  );
+}
+
+/* ============================================
+   Scrollbar (Pixel Style)
+   ============================================ */
+::-webkit-scrollbar {
+  width: 12px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--color-mocha-surface);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--color-mocha-subtle);
+  border: 2px solid var(--color-mocha-surface);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-caramel);
+}
+
+/* ============================================
+   Selection
+   ============================================ */
+::selection {
+  background: var(--color-caramel);
+  color: var(--color-mocha-base);
+}
+
+/* ============================================
+   Focus States (Accessibility)
+   ============================================ */
+:focus-visible {
+  outline: 3px solid var(--color-pixel-orange);
+  outline-offset: 2px;
+}
+
+/* ============================================
+   Link Styles
+   ============================================ */
+a {
+  color: var(--color-caramel);
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+a:hover {
+  color: var(--color-pixel-orange);
+}
+
+/* ============================================
+   Utility Classes
+   ============================================ */
+.text-pixel {
+  font-family: var(--font-pixel);
+  letter-spacing: 1px;
+}
+
+.text-gradient {
+  background: linear-gradient(135deg, var(--color-caramel), var(--color-pixel-orange));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Fade in animation */
+.fade-in {
+  animation: fadeIn 0.6s ease-out forwards;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Stagger children animations */
+.stagger-children > * {
+  opacity: 0;
+  animation: fadeIn 0.5s ease-out forwards;
+}
+
+.stagger-children > *:nth-child(1) { animation-delay: 0.1s; }
+.stagger-children > *:nth-child(2) { animation-delay: 0.2s; }
+.stagger-children > *:nth-child(3) { animation-delay: 0.3s; }
+.stagger-children > *:nth-child(4) { animation-delay: 0.4s; }
+.stagger-children > *:nth-child(5) { animation-delay: 0.5s; }
