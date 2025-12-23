@@ -60,12 +60,41 @@ const icons = {
   target={type !== 'email' ? '_blank' : undefined}
   rel={type !== 'email' ? 'noopener noreferrer' : undefined}
   aria-label={label}
-  class="group inline-block p-3 bg-mocha-surface border-4 border-mocha-subtle hover:border-caramel transition-all duration-100 pixel-hover"
+  class="icon-link group inline-block p-3 bg-mocha-surface border-4 border-mocha-subtle hover:border-caramel transition-all duration-100"
 >
   <svg
     viewBox="0 0 16 16"
-    class="w-8 h-8 text-warm-white group-hover:text-caramel transition-colors"
+    class="icon-svg w-8 h-8 text-warm-white group-hover:text-caramel transition-colors"
     style="image-rendering: pixelated;"
     set:html={icons[type]}
   />
 </a>
+
+<style>
+  .icon-link {
+    position: relative;
+  }
+
+  .icon-link:hover {
+    animation: icon-bounce 0.4s ease;
+    transform: translateY(-4px);
+    box-shadow: 0 4px 0 0 var(--color-mocha-overlay);
+  }
+
+  @keyframes icon-bounce {
+    0%, 100% {
+      transform: translateY(-4px);
+    }
+    50% {
+      transform: translateY(-8px);
+    }
+  }
+
+  .icon-svg {
+    transition: transform 0.2s ease;
+  }
+
+  .icon-link:hover .icon-svg {
+    transform: rotate(-5deg) scale(1.1);
+  }
+</style>

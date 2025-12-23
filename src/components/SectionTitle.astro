@@ -6,6 +6,16 @@ interface Props {
 const { id } = Astro.props;
 ---
 
-<h2 id={id} class="text-pixel text-sm md:text-base text-caramel mb-8 pixel-underline inline-block scroll-mt-24">
+<h2 id={id} class="section-title text-pixel text-sm md:text-base text-caramel mb-8 pixel-underline inline-block scroll-mt-24 glitch cursor-pointer">
   <slot />
 </h2>
+
+<style>
+  .section-title {
+    transition: all 0.2s ease;
+  }
+
+  .section-title:hover {
+    text-shadow: 0 0 10px var(--color-caramel);
+  }
+</style>

@@ -58,6 +58,39 @@ const base = import.meta.env.BASE_URL;
   .pixel-image {
     image-rendering: auto;
     filter: contrast(1.05) saturate(0.9);
+    transition: all 0.3s ease;
+  }
+
+  /* Hover effects - subtle glow */
+  .pixel-avatar-container:hover .pixel-image {
+    filter: contrast(1.1) saturate(1.1) brightness(1.05);
+    transform: scale(1.02);
+  }
+
+  .pixel-avatar-container {
+    transition: transform 0.2s ease;
+    cursor: pointer;
+  }
+
+  .pixel-avatar-container:hover {
+    transform: translateY(-4px);
+  }
+
+  /* Glow effect on hover */
+  .pixel-avatar-container::before {
+    content: '';
+    position: absolute;
+    inset: -4px;
+    background: var(--color-caramel);
+    opacity: 0;
+    filter: blur(12px);
+    transition: opacity 0.3s ease;
+    z-index: -1;
+    border-radius: 8px;
+  }
+
+  .pixel-avatar-container:hover::before {
+    opacity: 0.3;
   }
 
   /* Scanline overlay effect for retro feel */

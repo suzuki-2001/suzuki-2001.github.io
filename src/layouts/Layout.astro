@@ -28,18 +28,18 @@ const base = import.meta.env.BASE_URL;
 
     <title>{title}</title>
   </head>
-  <body class="dot-grid min-h-screen">
+  <body class="dot-grid min-h-screen page-load">
     <!-- Navigation -->
     <nav class="fixed top-0 left-0 right-0 z-50 bg-mocha-base/90 backdrop-blur-sm border-b-4 border-mocha-subtle">
       <div class="max-w-4xl mx-auto px-6 py-4 flex items-center justify-between">
-        <a href="#" class="text-pixel text-xs text-caramel hover:text-pixel-orange transition-colors">
+        <a href="#" class="text-pixel text-xs text-caramel hover:text-pixel-orange transition-colors glitch">
           &gt; RESEARCHER_
         </a>
         <div class="flex gap-4 md:gap-6 text-sm">
-          <a href="#about" class="hover:text-caramel transition-colors hidden sm:block">About</a>
-          <a href="#publications" class="hover:text-caramel transition-colors">Pubs</a>
-          <a href="#awards" class="hover:text-caramel transition-colors">Awards</a>
-          <a href="#contact" class="hover:text-caramel transition-colors">Contact</a>
+          <a href="#about" class="hover:text-caramel transition-colors hidden sm:block glitch">About</a>
+          <a href="#publications" class="hover:text-caramel transition-colors glitch">Pubs</a>
+          <a href="#awards" class="hover:text-caramel transition-colors glitch">Awards</a>
+          <a href="#contact" class="hover:text-caramel transition-colors glitch">Contact</a>
         </div>
       </div>
     </nav>
@@ -61,11 +61,45 @@ const base = import.meta.env.BASE_URL;
     <!-- Scroll to top button -->
     <button
       id="scroll-top"
-      class="fixed bottom-6 right-6 w-12 h-12 bg-mocha-surface border-4 border-caramel text-caramel opacity-0 pointer-events-none transition-opacity duration-300 hover:bg-caramel hover:text-mocha-base pixel-hover"
+      class="scroll-top-btn fixed bottom-6 right-6 w-12 h-12 bg-mocha-surface border-4 border-caramel text-caramel opacity-0 pointer-events-none transition-all duration-300 hover:bg-caramel hover:text-mocha-base"
       aria-label="Scroll to top"
     >
-      <span class="text-pixel text-xs">&uarr;</span>
+      <span class="scroll-arrow text-pixel text-xs">&uarr;</span>
     </button>
+
+    <style>
+      .scroll-top-btn {
+        transform: translateY(20px);
+      }
+
+      .scroll-top-btn:not(.opacity-0) {
+        transform: translateY(0);
+      }
+
+      .scroll-top-btn:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 4px 0 0 var(--color-mocha-overlay);
+      }
+
+      .scroll-top-btn:active {
+        transform: translateY(0);
+        box-shadow: none;
+      }
+
+      .scroll-arrow {
+        display: inline-block;
+        transition: transform 0.2s ease;
+      }
+
+      .scroll-top-btn:hover .scroll-arrow {
+        animation: arrow-bounce 0.5s ease infinite;
+      }
+
+      @keyframes arrow-bounce {
+        0%, 100% { transform: translateY(0); }
+        50% { transform: translateY(-3px); }
+      }
+    </style>
 
     <script>
       // Scroll to top button visibility
@@ -101,6 +135,32 @@ const base = import.meta.env.BASE_URL;
       document.querySelectorAll('.animate-on-scroll').forEach(el => {
         observer.observe(el);
       });
+
+      // Typewriter effect
+      const typewriterEl = document.getElementById('typewriter') as HTMLElement | null;
+      if (typewriterEl) {
+        const text = 'Shosuke Suzuki';
+        let i = 0;
+        const speed = 100; // ms per character
+        const el = typewriterEl;
+
+        function typeWriter() {
+          if (i < text.length) {
+            el.textContent += text.charAt(i);
+            i++;
+            setTimeout(typeWriter, speed);
+          } else {
+            // Show title after name is typed
+            const fadeEl = document.querySelector('.typewriter-fade') as HTMLElement | null;
+            if (fadeEl) {
+              fadeEl.style.opacity = '1';
+            }
+          }
+        }
+
+        // Start typing after a short delay
+        setTimeout(typeWriter, 500);
+      }
     </script>
   </body>
 </html>

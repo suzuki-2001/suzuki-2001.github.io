@@ -5,7 +5,7 @@ import SectionTitle from '../components/SectionTitle.astro';
 import PixelIcon from '../components/PixelIcon.astro';
 import PublicationCard from '../components/PublicationCard.astro';
 import ResearchCard from '../components/ResearchCard.astro';
-import FloatingMolecules from '../components/FloatingMolecules.astro';
+import ProteinViewer3D from '../components/ProteinViewer3D.astro';
 
 const profile = {
   name: "Shosuke Suzuki",
@@ -149,17 +149,17 @@ const researchAssistant = [
 <Layout title={`${profile.name} | Researcher`} description={`${profile.title} at ${profile.university}`}>
   <!-- Hero Section -->
   <section class="min-h-[80vh] flex items-center justify-center px-6 py-20 relative">
-    <FloatingMolecules />
+    <ProteinViewer3D />
     <div class="max-w-4xl mx-auto text-center stagger-children relative z-10">
       <PixelAvatar />
 
       <div class="mt-8 mb-4">
-        <h1 class="text-pixel text-lg md:text-2xl text-warm-white mb-2 cursor-blink">
-          {profile.name}
+        <h1 class="text-pixel text-lg md:text-2xl text-warm-white mb-2">
+          <span id="typewriter" class="typewriter"></span><span class="cursor">_</span>
         </h1>
       </div>
 
-      <p class="text-caramel text-lg mb-2">{profile.title}</p>
+      <p class="text-caramel text-lg mb-2 typewriter-fade" style="opacity: 0;">{profile.title}</p>
       <p class="text-cream/80">{profile.affiliation}</p>
       <p class="text-cream/60">{profile.university}</p>
 

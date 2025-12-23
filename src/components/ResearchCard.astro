@@ -8,14 +8,14 @@ interface Props {
 const { title, description, keywords } = Astro.props;
 ---
 
-<div class="group bg-mocha-surface p-6 border-4 border-mocha-subtle hover:border-caramel transition-all duration-200 pixel-hover">
+<div class="research-card group bg-mocha-surface p-6 border-4 border-mocha-subtle hover:border-caramel transition-all duration-200">
   <!-- Pixel corner decorations -->
   <div class="relative">
     <div class="absolute -top-8 -left-8 w-2 h-2 bg-caramel opacity-0 group-hover:opacity-100 transition-opacity"></div>
 
     <!-- Title with pixel icon -->
     <div class="flex items-center gap-3 mb-4">
-      <div class="w-4 h-4 bg-pixel-orange"></div>
+      <div class="pixel-icon w-4 h-4 bg-pixel-orange"></div>
       <h3 class="text-base font-semibold text-warm-white font-sans">{title}</h3>
     </div>
 
@@ -24,11 +24,63 @@ const { title, description, keywords } = Astro.props;
 
     <!-- Keywords -->
     <div class="flex flex-wrap gap-2">
-      {keywords.map(keyword => (
-        <span class="text-pixel text-[8px] px-2 py-1 bg-mocha-overlay text-caramel border border-mocha-subtle">
+      {keywords.map((keyword, i) => (
+        <span
+          class="keyword-tag text-pixel text-[8px] px-2 py-1 bg-mocha-overlay text-caramel border border-mocha-subtle"
+          style={`transition-delay: ${i * 50}ms`}
+        >
           {keyword}
         </span>
       ))}
     </div>
   </div>
 </div>
+
+<style>
+  .research-card {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .research-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+      90deg,
+      transparent,
+      rgba(249, 226, 175, 0.05),
+      transparent
+    );
+    transition: left 0.5s ease;
+  }
+
+  .research-card:hover::before {
+    left: 100%;
+  }
+
+  .research-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 0 -4px var(--color-mocha-overlay);
+  }
+
+  .pixel-icon {
+    transition: transform 0.2s ease;
+  }
+
+  .research-card:hover .pixel-icon {
+    transform: rotate(90deg);
+  }
+
+  .keyword-tag {
+    transition: all 0.2s ease;
+  }
+
+  .research-card:hover .keyword-tag {
+    background: var(--color-mocha-subtle);
+    border-color: var(--color-caramel);
+  }
+</style>

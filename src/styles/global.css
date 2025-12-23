@@ -109,6 +109,59 @@ h1, h2, h3 {
 }
 
 /* ============================================
+   Typewriter Effect
+   ============================================ */
+.typewriter {
+  display: inline;
+}
+
+.cursor {
+  color: var(--color-pixel-orange);
+  animation: blink 0.7s step-end infinite;
+}
+
+.typewriter-fade {
+  transition: opacity 0.5s ease;
+}
+
+/* ============================================
+   Glitch Effect
+   ============================================ */
+.glitch {
+  position: relative;
+}
+
+.glitch:hover {
+  animation: glitch 0.3s ease;
+}
+
+@keyframes glitch {
+  0% {
+    transform: translate(0);
+  }
+  20% {
+    transform: translate(-2px, 2px);
+    text-shadow: 2px 0 var(--color-pixel-orange), -2px 0 var(--color-pixel-green);
+  }
+  40% {
+    transform: translate(2px, -2px);
+    text-shadow: -2px 0 var(--color-pixel-orange), 2px 0 var(--color-pixel-green);
+  }
+  60% {
+    transform: translate(-1px, 1px);
+    text-shadow: 1px 0 var(--color-pixel-orange), -1px 0 var(--color-pixel-green);
+  }
+  80% {
+    transform: translate(1px, -1px);
+    text-shadow: -1px 0 var(--color-pixel-orange), 1px 0 var(--color-pixel-green);
+  }
+  100% {
+    transform: translate(0);
+    text-shadow: none;
+  }
+}
+
+/* ============================================
    Pixel Hover Effects
    ============================================ */
 .pixel-hover {
@@ -238,3 +291,24 @@ a:hover {
 .stagger-children > *:nth-child(3) { animation-delay: 0.3s; }
 .stagger-children > *:nth-child(4) { animation-delay: 0.4s; }
 .stagger-children > *:nth-child(5) { animation-delay: 0.5s; }
+
+/* ============================================
+   Page Load Animation
+   ============================================ */
+.page-load {
+  animation: pageLoad 0.6s ease-out;
+}
+
+@keyframes pageLoad {
+  0% {
+    opacity: 0;
+    filter: brightness(1.5) contrast(0.8);
+  }
+  50% {
+    filter: brightness(1.1) contrast(0.95);
+  }
+  100% {
+    opacity: 1;
+    filter: brightness(1) contrast(1);
+  }
+}
