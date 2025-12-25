@@ -8,63 +8,33 @@ interface Props {
 const { title, description, keywords } = Astro.props;
 ---
 
-<div class="research-card group bg-mocha-surface p-6 border-4 border-mocha-subtle hover:border-caramel transition-all duration-200">
-  <!-- Pixel corner decorations -->
-  <div class="relative">
-    <div class="absolute -top-8 -left-8 w-2 h-2 bg-caramel opacity-0 group-hover:opacity-100 transition-opacity"></div>
+<div class="research-card group bg-mocha-surface/30 p-4 border border-mocha-subtle/30 rounded-sm card-hover">
+  <!-- Title with pixel icon -->
+  <div class="flex items-center gap-2 mb-2">
+    <div class="pixel-icon w-2 h-2 bg-caramel/70 rounded-sm"></div>
+    <h3 class="text-sm font-semibold text-warm-white">{title}</h3>
+  </div>
 
-    <!-- Title with pixel icon -->
-    <div class="flex items-center gap-3 mb-4">
-      <div class="pixel-icon w-4 h-4 bg-pixel-orange"></div>
-      <h3 class="text-base font-semibold text-warm-white font-sans">{title}</h3>
-    </div>
+  <!-- Description -->
+  <p class="text-xs text-cream/70 mb-3 leading-relaxed">{description}</p>
 
-    <!-- Description -->
-    <p class="text-sm text-cream/80 mb-4 leading-relaxed">{description}</p>
-
-    <!-- Keywords -->
-    <div class="flex flex-wrap gap-2">
-      {keywords.map((keyword, i) => (
-        <span
-          class="keyword-tag text-pixel text-[8px] px-2 py-1 bg-mocha-overlay text-caramel border border-mocha-subtle"
-          style={`transition-delay: ${i * 50}ms`}
-        >
-          {keyword}
-        </span>
-      ))}
-    </div>
+  <!-- Keywords -->
+  <div class="flex flex-wrap gap-1.5">
+    {keywords.map((keyword) => (
+      <span class="text-pixel text-[7px] px-1.5 py-0.5 bg-mocha-surface/50 text-caramel/80 border border-mocha-subtle/30 rounded-sm">
+        {keyword}
+      </span>
+    ))}
   </div>
 </div>
 
 <style>
   .research-card {
     position: relative;
-    overflow: hidden;
-  }
-
-  .research-card::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: -100%;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(
-      90deg,
-      transparent,
-      rgba(249, 226, 175, 0.05),
-      transparent
-    );
-    transition: left 0.5s ease;
-  }
-
-  .research-card:hover::before {
-    left: 100%;
   }
 
   .research-card:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 8px 0 -4px var(--color-mocha-overlay);
+    transform: translateY(-2px);
   }
 
   .pixel-icon {
@@ -72,15 +42,6 @@ const { title, description, keywords } = Astro.props;
   }
 
   .research-card:hover .pixel-icon {
-    transform: rotate(90deg);
-  }
-
-  .keyword-tag {
-    transition: all 0.2s ease;
-  }
-
-  .research-card:hover .keyword-tag {
-    background: var(--color-mocha-subtle);
-    border-color: var(--color-caramel);
+    transform: rotate(45deg);
   }
 </style>

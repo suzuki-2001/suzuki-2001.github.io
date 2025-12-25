@@ -312,3 +312,25 @@ a:hover {
     filter: brightness(1) contrast(1);
   }
 }
+
+/* ============================================
+   Enhanced Card Hover Effects
+   ============================================ */
+.card-hover {
+  transition: all 0.2s ease;
+}
+
+.card-hover:hover {
+  transform: translateY(-2px);
+  border-color: var(--color-caramel) !important;
+  box-shadow: 0 4px 12px rgba(249, 226, 175, 0.1);
+}
+
+/* Subtle glow effect on hover */
+.glow-hover {
+  transition: all 0.3s ease;
+}
+
+.glow-hover:hover {
+  box-shadow: 0 0 20px rgba(249, 226, 175, 0.15);
+}

@@ -5,7 +5,7 @@ import SectionTitle from '../components/SectionTitle.astro';
 import PixelIcon from '../components/PixelIcon.astro';
 import PublicationCard from '../components/PublicationCard.astro';
 import ResearchCard from '../components/ResearchCard.astro';
-import ProteinViewer3D from '../components/ProteinViewer3D.astro';
+import RetroProteinBackground from '../components/RetroProteinBackground.astro';
 
 const profile = {
   name: "Shosuke Suzuki",
@@ -23,19 +23,14 @@ const about = `I am a Ph.D. student in Computer Science at the University of Tsu
 
 const researchAreas = [
   {
-    title: "Genomic Language Models",
-    description: "Developing transformer-based models for plant genome annotation and regulatory element prediction with novel k-mer tokenization strategies.",
-    keywords: ["NLP", "Genomics", "Transformers"]
-  },
-  {
     title: "Protein Design",
     description: "Leveraging deep generative models and latent space manipulation for protein dynamic structure prediction and de novo binder design.",
     keywords: ["Protein", "Generative AI", "Structure"]
   },
   {
-    title: "Bioinformatics",
-    description: "Computational analysis of biological data, integrating machine learning approaches with molecular biology insights.",
-    keywords: ["ML", "Biology", "Data Science"]
+    title: "Genomic Language Models",
+    description: "Developing transformer-based models for plant genome annotation and regulatory element prediction with novel k-mer tokenization strategies.",
+    keywords: ["NLP", "Genomics", "Transformers"]
   }
 ];
 
@@ -148,80 +143,70 @@ const researchAssistant = [
 
 <Layout title={`${profile.name} | Researcher`} description={`${profile.title} at ${profile.university}`}>
   <!-- Hero Section -->
-  <section class="min-h-[80vh] flex items-center justify-center px-6 py-20 relative">
-    <ProteinViewer3D />
+  <section class="min-h-[65vh] flex items-center justify-center px-6 py-12 relative overflow-hidden">
+    <RetroProteinBackground />
     <div class="max-w-4xl mx-auto text-center stagger-children relative z-10">
       <PixelAvatar />
 
-      <div class="mt-8 mb-4">
+      <div class="mt-6 mb-3">
         <h1 class="text-pixel text-lg md:text-2xl text-warm-white mb-2">
           <span id="typewriter" class="typewriter"></span><span class="cursor">_</span>
         </h1>
       </div>
 
-      <p class="text-caramel text-lg mb-2 typewriter-fade" style="opacity: 0;">{profile.title}</p>
-      <p class="text-cream/80">{profile.affiliation}</p>
-      <p class="text-cream/60">{profile.university}</p>
+      <p class="text-caramel text-lg mb-1 typewriter-fade" style="opacity: 0;">{profile.title}</p>
+      <p class="text-cream/80 text-sm">{profile.affiliation}</p>
+      <p class="text-cream/60 text-sm">{profile.university}</p>
 
-      <!-- Scroll indicator -->
-      <div class="mt-16 animate-bounce">
-        <span class="text-pixel text-xs text-mocha-subtle">[ scroll ]</span>
-      </div>
     </div>
   </section>
 
   <!-- About Section -->
-  <section id="about" class="max-w-4xl mx-auto px-6 py-16 animate-on-scroll">
+  <section id="about" class="max-w-4xl mx-auto px-6 py-10 animate-on-scroll">
     <SectionTitle>&gt; ABOUT</SectionTitle>
 
-    <div class="bg-mocha-surface border-4 border-mocha-subtle p-6 md:p-8">
-      <p class="text-cream/90 leading-relaxed whitespace-pre-line">
+    <div class="bg-mocha-surface/50 border border-mocha-subtle/50 rounded-sm p-5">
+      <p class="text-cream/90 leading-relaxed text-sm">
         {about}
       </p>
+    </div>
 
+    <!-- Info Grid -->
+    <div class="grid md:grid-cols-3 gap-4 mt-4">
       <!-- Education -->
-      <div class="mt-8 pt-8 border-t border-mocha-subtle">
-        <h3 class="text-pixel text-xs text-caramel mb-4">EDUCATION</h3>
-        <div class="space-y-3">
+      <div class="bg-mocha-surface/30 border border-mocha-subtle/30 rounded-sm p-4">
+        <h3 class="text-pixel text-[10px] text-caramel mb-3 tracking-wider">EDUCATION</h3>
+        <div class="space-y-2">
           {education.map(edu => (
-            <div class="flex flex-col sm:flex-row sm:justify-between gap-1">
-              <div>
-                <span class="text-warm-white font-medium">{edu.degree}</span>
-                <span class="text-cream/60 text-sm ml-2">@ {edu.school}</span>
-              </div>
-              <span class="text-pixel text-[10px] text-mocha-subtle">{edu.period}</span>
+            <div class="text-sm">
+              <div class="text-warm-white font-medium text-xs">{edu.degree}</div>
+              <div class="text-cream/50 text-xs">{edu.school} · {edu.period}</div>
             </div>
           ))}
         </div>
       </div>
 
       <!-- Funding -->
-      <div class="mt-8 pt-8 border-t border-mocha-subtle">
-        <h3 class="text-pixel text-xs text-caramel mb-4">FUNDING</h3>
-        <div class="space-y-3">
+      <div class="bg-mocha-surface/30 border border-mocha-subtle/30 rounded-sm p-4">
+        <h3 class="text-pixel text-[10px] text-caramel mb-3 tracking-wider">FUNDING</h3>
+        <div class="space-y-2">
           {funding.map(fund => (
-            <div class="flex flex-col sm:flex-row sm:justify-between gap-1">
-              <div>
-                <span class="text-warm-white font-medium">{fund.name}</span>
-                <span class="text-cream/60 text-sm ml-2">- {fund.full}</span>
-              </div>
-              <span class="text-pixel text-[10px] text-mocha-subtle">{fund.period}</span>
+            <div class="text-sm">
+              <div class="text-warm-white font-medium text-xs">{fund.name}</div>
+              <div class="text-cream/50 text-xs">{fund.period}</div>
             </div>
           ))}
         </div>
       </div>
 
       <!-- Research Assistant -->
-      <div class="mt-8 pt-8 border-t border-mocha-subtle">
-        <h3 class="text-pixel text-xs text-caramel mb-4">RESEARCH ASSISTANT</h3>
-        <div class="space-y-4">
+      <div class="bg-mocha-surface/30 border border-mocha-subtle/30 rounded-sm p-4">
+        <h3 class="text-pixel text-[10px] text-caramel mb-3 tracking-wider">POSITIONS</h3>
+        <div class="space-y-2">
           {researchAssistant.map(ra => (
-            <div class="flex flex-col sm:flex-row sm:justify-between gap-1">
-              <div>
-                <span class="text-warm-white font-medium">{ra.org}</span>
-                <span class="text-cream/60 text-sm block">{ra.department}</span>
-              </div>
-              <span class="text-pixel text-[10px] text-mocha-subtle whitespace-nowrap">{ra.period}</span>
+            <div class="text-sm">
+              <div class="text-warm-white font-medium text-xs leading-tight">{ra.org}</div>
+              <div class="text-cream/50 text-xs">{ra.period}</div>
             </div>
           ))}
         </div>
@@ -230,10 +215,10 @@ const researchAssistant = [
   </section>
 
   <!-- Research Section -->
-  <section id="research" class="max-w-5xl mx-auto px-6 py-16 animate-on-scroll">
+  <section id="research" class="max-w-5xl mx-auto px-6 py-10 animate-on-scroll">
     <SectionTitle>&gt; RESEARCH</SectionTitle>
 
-    <div class="grid md:grid-cols-3 gap-6">
+    <div class="grid grid-cols-2 gap-3">
       {researchAreas.map(area => (
         <ResearchCard {...area} />
       ))}
@@ -241,7 +226,7 @@ const researchAssistant = [
   </section>
 
   <!-- Publications Section -->
-  <section id="publications" class="max-w-4xl mx-auto px-6 py-16 animate-on-scroll">
+  <section id="publications" class="max-w-4xl mx-auto px-6 py-10 animate-on-scroll">
     <SectionTitle>&gt; PUBLICATIONS</SectionTitle>
 
     <div class="space-y-4">
@@ -250,54 +235,54 @@ const researchAssistant = [
       ))}
     </div>
 
-    <div class="mt-8 text-center">
+    <div class="mt-4 text-center">
       <a
         href={profile.orcid}
         target="_blank"
         rel="noopener noreferrer"
-        class="inline-block text-pixel text-xs px-6 py-3 bg-mocha-surface border-4 border-caramel text-caramel hover:bg-caramel hover:text-mocha-base transition-colors pixel-hover"
+        class="inline-block text-pixel text-[10px] px-4 py-2 bg-mocha-surface/50 border border-caramel/50 text-caramel hover:bg-caramel/20 hover:border-caramel transition-colors rounded-sm"
       >
-        VIEW ON ORCID
+        VIEW ON ORCID →
       </a>
     </div>
   </section>
 
   <!-- Conferences Section -->
-  <section id="conferences" class="max-w-4xl mx-auto px-6 py-16 animate-on-scroll">
+  <section id="conferences" class="max-w-4xl mx-auto px-6 py-10 animate-on-scroll">
     <SectionTitle>&gt; CONFERENCES</SectionTitle>
 
-    <div class="space-y-4">
+    <div class="grid sm:grid-cols-2 gap-3">
       {conferences.map(conf => (
-        <div class="bg-mocha-surface border-l-4 border-mocha-subtle p-6 hover:border-caramel transition-colors">
-          <div class="flex flex-col sm:flex-row sm:justify-between gap-2 mb-2">
-            <h3 class="text-warm-white font-semibold">{conf.title}</h3>
-            <span class="text-pixel text-[10px] text-caramel">{conf.date}</span>
+        <div class="bg-mocha-surface/30 border border-mocha-subtle/30 rounded-sm p-4 card-hover">
+          <div class="flex justify-between items-start gap-2 mb-1">
+            <h3 class="text-warm-white font-medium text-sm leading-tight">{conf.title}</h3>
+            <span class="text-pixel text-[9px] text-caramel whitespace-nowrap">{conf.date}</span>
           </div>
-          <p class="text-cream/60 text-sm">{conf.type} / {conf.location}</p>
+          <p class="text-cream/50 text-xs">{conf.type} · {conf.location}</p>
         </div>
       ))}
     </div>
   </section>
 
   <!-- Awards Section -->
-  <section id="awards" class="max-w-4xl mx-auto px-6 py-16 animate-on-scroll">
+  <section id="awards" class="max-w-4xl mx-auto px-6 py-10 animate-on-scroll">
     <SectionTitle>&gt; AWARDS</SectionTitle>
 
-    <div class="space-y-4">
+    <div class="grid sm:grid-cols-2 gap-3">
       {awards.map(award => (
-        <div class={`group bg-mocha-surface border-l-4 p-6 hover:border-caramel transition-colors ${award.ongoing ? 'border-pixel-green' : 'border-pixel-orange'}`}>
-          <div class="flex flex-col sm:flex-row sm:justify-between gap-2 mb-2">
-            <div class="flex items-center gap-2 flex-wrap">
-              <h3 class="text-warm-white font-semibold">{award.title}</h3>
+        <div class={`bg-mocha-surface/30 border rounded-sm p-4 card-hover ${award.ongoing ? 'border-pixel-green/40' : 'border-mocha-subtle/30'}`}>
+          <div class="flex justify-between items-start gap-2 mb-1">
+            <div class="flex items-center gap-2">
+              <h3 class="text-warm-white font-medium text-sm">{award.title}</h3>
               {award.ongoing && (
-                <span class="text-pixel text-[8px] px-2 py-0.5 bg-pixel-green text-mocha-base">ONGOING</span>
+                <span class="text-pixel text-[7px] px-1.5 py-0.5 bg-pixel-green/20 text-pixel-green rounded-sm">ONGOING</span>
               )}
             </div>
-            <span class={`text-pixel text-[10px] ${award.ongoing ? 'text-pixel-green' : 'text-pixel-orange'}`}>{award.year}</span>
+            <span class={`text-pixel text-[9px] ${award.ongoing ? 'text-pixel-green' : 'text-caramel'}`}>{award.year}</span>
           </div>
-          <p class="text-cream/60 text-sm">{award.event}</p>
+          <p class="text-cream/50 text-xs">{award.event}</p>
           {award.detail && (
-            <p class="text-pixel text-[9px] text-caramel mt-2">{award.detail}</p>
+            <p class="text-pixel text-[8px] text-caramel/80 mt-1">{award.detail}</p>
           )}
         </div>
       ))}
@@ -305,22 +290,22 @@ const researchAssistant = [
   </section>
 
   <!-- Contact Section -->
-  <section id="contact" class="max-w-4xl mx-auto px-6 py-16 animate-on-scroll">
+  <section id="contact" class="max-w-4xl mx-auto px-6 py-10 animate-on-scroll">
     <SectionTitle>&gt; CONTACT</SectionTitle>
 
-    <div class="text-center">
-      <p class="text-cream/80 mb-8">
-        Feel free to reach out for collaborations, questions, or just to say hello!
+    <div class="bg-mocha-surface/30 border border-mocha-subtle/30 rounded-sm p-6 text-center">
+      <p class="text-cream/70 text-sm mb-4">
+        Open for collaborations and research discussions
       </p>
 
-      <div class="flex justify-center gap-4 flex-wrap">
+      <div class="flex justify-center gap-3 flex-wrap mb-4">
         <PixelIcon type="email" href={`mailto:${profile.email}`} label="Email" />
         <PixelIcon type="github" href={profile.github} label="GitHub" />
         <PixelIcon type="twitter" href={profile.twitter} label="Twitter" />
         <PixelIcon type="linkedin" href={profile.linkedin} label="LinkedIn" />
       </div>
 
-      <p class="text-pixel text-[10px] text-mocha-subtle mt-8">
+      <p class="text-pixel text-[9px] text-mocha-subtle">
         {profile.email}
       </p>
     </div>
