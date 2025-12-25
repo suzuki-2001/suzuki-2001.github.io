@@ -18,8 +18,8 @@ const base = import.meta.env.BASE_URL;
     <meta name="description" content={description} />
     <meta name="generator" content={Astro.generator} />
 
-    <!-- Favicon (pixel style) -->
-    <link rel="icon" type="image/svg+xml" href={`${base}/favicon.svg`} />
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href={`${base}/1l2y_coolwarm.png`} />
 
     <!-- Open Graph -->
     <meta property="og:title" content={title} />
@@ -34,6 +34,32 @@ const base = import.meta.env.BASE_URL;
     <meta name="twitter:title" content={title} />
     <meta name="twitter:description" content={description} />
     <meta name="twitter:image" content={`${base}/og-image.svg`} />
+
+    <!-- JSON-LD Structured Data -->
+    <script type="application/ld+json" set:html={JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "Person",
+      "name": "Shosuke Suzuki",
+      "jobTitle": "Ph.D. Student",
+      "affiliation": {
+        "@type": "Organization",
+        "name": "University of Tsukuba",
+        "department": "Graduate School of Systems and Information Engineering"
+      },
+      "email": "suzuki.shosuke@kde.cs.tsukuba.ac.jp",
+      "url": "https://suzuki-2001.github.io/mypage/",
+      "sameAs": [
+        "https://github.com/suzuki-2001",
+        "https://twitter.com/suzuki2001_",
+        "https://www.linkedin.com/in/suzuki2001",
+        "https://orcid.org/0009-0001-3354-195X"
+      ],
+      "knowsAbout": ["Protein Design", "Genomic Language Models", "Deep Learning", "Bioinformatics"],
+      "alumniOf": {
+        "@type": "CollegeOrUniversity",
+        "name": "University of Tsukuba"
+      }
+    })} />
 
     <title>{title}</title>
   </head>
