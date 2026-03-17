@@ -11,9 +11,9 @@ interface Props {
 const { title, authors, venue, year, link, type = 'paper' } = Astro.props;
 
 const typeColors = {
-  paper: 'bg-pixel-green/20 text-pixel-green',
-  preprint: 'bg-pixel-orange/20 text-pixel-orange',
-  workshop: 'bg-caramel/20 text-caramel'
+  paper: 'bg-blue/10 text-blue',
+  preprint: 'bg-gold/15 text-gold',
+  workshop: 'bg-sky/10 text-sky'
 };
 
 const typeLabels = {
@@ -23,41 +23,31 @@ const typeLabels = {
 };
 ---
 
-<article class="pub-card group bg-mocha-surface/30 border border-mocha-subtle/30 rounded-sm p-4 card-hover">
+<article class="pub-card group bg-white border border-border rounded-lg p-5 card-hover">
   <!-- Type badge and year -->
   <div class="flex items-center gap-2 mb-2">
-    <span class={`text-pixel text-[7px] px-1.5 py-0.5 rounded-sm ${typeColors[type]}`}>
+    <span class={`text-[11px] font-semibold px-2 py-0.5 rounded-full ${typeColors[type]}`}>
       {typeLabels[type]}
     </span>
-    <span class="text-pixel text-[9px] text-mocha-subtle">{year}</span>
+    <span class="text-xs text-slate-light">{year}</span>
   </div>
 
   <!-- Title -->
   {link ? (
     <a href={link} target="_blank" rel="noopener noreferrer" class="block">
-      <h3 class="text-sm font-medium text-warm-white group-hover:text-caramel transition-colors mb-1.5 leading-tight">
+      <h3 class="text-sm font-medium text-navy group-hover:text-blue transition-colors mb-1.5 leading-snug">
         {title}
       </h3>
     </a>
   ) : (
-    <h3 class="text-sm font-medium text-warm-white mb-1.5 leading-tight">
+    <h3 class="text-sm font-medium text-navy mb-1.5 leading-snug">
       {title}
     </h3>
   )}
 
   <!-- Authors -->
-  <p class="text-xs text-cream/60 mb-1">{authors}</p>
+  <p class="text-xs text-slate mb-1">{authors}</p>
 
   <!-- Venue -->
-  <p class="text-xs text-caramel/80 italic">{venue}</p>
+  <p class="text-xs text-blue/70 italic">{venue}</p>
 </article>
-
-<style>
-  .pub-card {
-    position: relative;
-  }
-
-  .pub-card:hover {
-    transform: translateX(2px);
-  }
-</style>

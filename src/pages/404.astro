@@ -5,32 +5,22 @@ import Layout from '../layouts/Layout.astro';
 <Layout title="404 | Page Not Found" description="The page you're looking for doesn't exist">
   <section class="min-h-[70vh] flex items-center justify-center px-6">
     <div class="text-center">
-      <!-- Pixel art 404 -->
-      <div class="mb-8">
-        <span class="text-pixel text-6xl md:text-8xl text-caramel">404</span>
+      <div class="mb-6">
+        <span class="text-6xl md:text-8xl font-bold text-gradient">404</span>
       </div>
 
-      <!-- Message -->
-      <h1 class="text-pixel text-sm md:text-base text-warm-white mb-4">
-        PAGE NOT FOUND
+      <h1 class="text-lg font-semibold text-navy mb-3">
+        Page Not Found
       </h1>
-      <p class="text-cream/60 text-sm mb-8 max-w-md mx-auto">
+      <p class="text-slate text-sm mb-8 max-w-md mx-auto">
         The page you're looking for doesn't exist or has been moved.
       </p>
 
-      <!-- Pixel decoration -->
-      <div class="flex justify-center gap-2 mb-8">
-        <span class="w-2 h-2 bg-pixel-orange"></span>
-        <span class="w-2 h-2 bg-caramel"></span>
-        <span class="w-2 h-2 bg-pixel-green"></span>
-      </div>
-
-      <!-- Back button -->
       <a
         href="/"
-        class="inline-block text-pixel text-[10px] px-6 py-3 bg-mocha-surface/50 border border-caramel/50 text-caramel hover:bg-caramel/20 hover:border-caramel transition-colors rounded-sm"
+        class="inline-block text-sm px-6 py-2.5 bg-blue text-white hover:bg-blue-light transition-colors rounded-full"
       >
-        &larr; BACK TO HOME
+        &larr; Back to Home
       </a>
     </div>
   </section>

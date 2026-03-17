@@ -8,40 +8,22 @@ interface Props {
 const { title, description, keywords } = Astro.props;
 ---
 
-<div class="research-card group bg-mocha-surface/30 p-4 border border-mocha-subtle/30 rounded-sm card-hover">
-  <!-- Title with pixel icon -->
+<div class="research-card group bg-white p-5 border border-border rounded-lg card-hover">
+  <!-- Title -->
   <div class="flex items-center gap-2 mb-2">
-    <div class="pixel-icon w-2 h-2 bg-caramel/70 rounded-sm"></div>
-    <h3 class="text-sm font-semibold text-warm-white">{title}</h3>
+    <div class="w-2 h-2 bg-blue rounded-full"></div>
+    <h3 class="text-sm font-semibold text-navy">{title}</h3>
   </div>
 
   <!-- Description -->
-  <p class="text-xs text-cream/70 mb-3 leading-relaxed">{description}</p>
+  <p class="text-xs text-slate leading-relaxed mb-3">{description}</p>
 
   <!-- Keywords -->
   <div class="flex flex-wrap gap-1.5">
     {keywords.map((keyword) => (
-      <span class="text-pixel text-[7px] px-1.5 py-0.5 bg-mocha-surface/50 text-caramel/80 border border-mocha-subtle/30 rounded-sm">
+      <span class="text-[11px] px-2 py-0.5 bg-base-blue text-blue/80 border border-blue/10 rounded-full">
         {keyword}
       </span>
     ))}
   </div>
 </div>
-
-<style>
-  .research-card {
-    position: relative;
-  }
-
-  .research-card:hover {
-    transform: translateY(-2px);
-  }
-
-  .pixel-icon {
-    transition: transform 0.2s ease;
-  }
-
-  .research-card:hover .pixel-icon {
-    transform: rotate(45deg);
-  }
-</style>

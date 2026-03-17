@@ -6,16 +6,21 @@ interface Props {
 const { id } = Astro.props;
 ---
 
-<h2 id={id} class="section-title text-pixel text-sm md:text-base text-caramel mb-8 pixel-underline inline-block scroll-mt-24 glitch cursor-pointer">
+<h2 id={id} class="section-title text-lg md:text-xl font-semibold text-navy mb-8 inline-block scroll-mt-24">
   <slot />
+  <div class="title-underline"></div>
 </h2>
 
 <style>
   .section-title {
-    transition: all 0.2s ease;
+    position: relative;
   }
 
-  .section-title:hover {
-    text-shadow: 0 0 10px var(--color-caramel);
+  .title-underline {
+    margin-top: 6px;
+    height: 3px;
+    width: 100%;
+    background: linear-gradient(90deg, var(--color-blue), var(--color-sky));
+    border-radius: 2px;
   }
 </style>

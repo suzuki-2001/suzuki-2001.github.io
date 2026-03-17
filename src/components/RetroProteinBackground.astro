@@ -1,434 +1,264 @@
 ---
 // Retro Protein Background with 3Dmol.js
-// Multiple protein rows scrolling in alternating directions
-const proteins = [
-  { pdbId: '1GFL', name: 'GFP' },       // Green Fluorescent Protein
-  { pdbId: '1CRN', name: 'Crambin' },   // Small protein
-  { pdbId: '1UBQ', name: 'Ubiquitin' }, // Regulatory protein
-  { pdbId: '2PTC', name: 'Trypsin' },   // Enzyme
-  { pdbId: '1HHO', name: 'Hemoglobin' },// Oxygen transport
-  { pdbId: '1BNA', name: 'DNA' },       // DNA double helix
-  { pdbId: '1MBO', name: 'Myoglobin' }, // Oxygen storage
-  { pdbId: '3CLN', name: 'Calmodulin' },// Calcium binding
-  { pdbId: '1LYZ', name: 'Lysozyme' },  // Enzyme
-  { pdbId: '1IGT', name: 'Antibody' },  // Immunoglobulin
+// All structures ~50-80 residues/nt for visual consistency
+// No zoom adjustment — just zoomTo() and render
+const base = import.meta.env.BASE_URL;
+
+const structures = [
+  // Proteins
+  { pdbId: '1UBQ', name: 'Ubiquitin' },
+  { pdbId: '1ENH', name: 'Homeodomain' },
+  { pdbId: '2CI2', name: 'CI2' },
+  { pdbId: '9T8Z', name: 'Protein' },
+  { pdbId: '9LVU', name: 'Protein' },
+  { pdbId: '9LOM', name: 'Protein' },
+  { pdbId: '9QT0', name: 'Protein' },
+  { pdbId: '9LNS', name: 'Protein' },
+  // DNA
+  { pdbId: '8FHV', name: 'DNA' },
+  { pdbId: '8FHX', name: 'DNA' },
+  { pdbId: '8FHZ', name: 'DNA' },
+  // RNA
+  { pdbId: '1EHZ', name: 'tRNA' },
+  { pdbId: '1EVV', name: 'tRNA' },
+  { pdbId: '1TRA', name: 'tRNA' },
+  { pdbId: '4TNA', name: 'tRNA' },
+  { pdbId: '1Y26', name: 'RNA' },
 ];
 
-// Distribute proteins across 4 rows
+// 3 rows — each row mixes protein + DNA + RNA
 const rows = [
-  [proteins[0], proteins[1], proteins[2], proteins[3]],  // Row 1
-  [proteins[4], proteins[5], proteins[6], proteins[7]],  // Row 2
-  [proteins[8], proteins[9], proteins[0], proteins[1]],  // Row 3
-  [proteins[2], proteins[3], proteins[4], proteins[5]],  // Row 4
+  [structures[0], structures[8],  structures[11], structures[3], structures[10], structures[13]],
+  [structures[12], structures[1], structures[9],  structures[4], structures[15], structures[6]],
+  [structures[2],  structures[14], structures[5], structures[8], structures[7],  structures[11]],
 ];
 ---
 
-<div class="retro-protein-bg" aria-hidden="true" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; overflow: hidden; pointer-events: none; z-index: 0; opacity: 0.4;">
-  <!-- Loading indicator -->
+<div class="retro-protein-bg" aria-hidden="true" data-base={base} style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; overflow: hidden; pointer-events: none; z-index: 0; opacity: 0.28;">
   <div id="protein-loading" class="loading-indicator">
-    <div class="loading-dots">
-      <span></span><span></span><span></span>
-    </div>
+    <div class="loading-dots"><span></span><span></span><span></span></div>
   </div>
-  {rows.map((rowProteins, rowIndex) => (
+  {rows.map((rowItems, rowIndex) => (
     <div
       class={`protein-row ${rowIndex % 2 === 0 ? 'scroll-left' : 'scroll-right'}`}
-      style={`position: absolute; left: 0; top: ${rowIndex * 20 + 5}vh; display: flex; gap: 2rem; align-items: center;`}
+      style={`position: absolute; left: 0; top: ${rowIndex * 30 + 3}vh; display: flex; gap: 2rem; align-items: center;`}
     >
-      {/* Duplicate for seamless loop - more copies for wider coverage */}
-      {[...rowProteins, ...rowProteins, ...rowProteins, ...rowProteins].map((protein, i) => (
-        <div
-          class="protein-cell"
-          data-pdb-id={protein.pdbId}
-          data-index={`${rowIndex}-${i}`}
-        >
+      {[...rowItems, ...rowItems, ...rowItems].map((item, i) => (
+        <div class="protein-cell" data-pdb-id={item.pdbId} data-index={`${rowIndex}-${i}`}>
           <canvas class="protein-canvas"></canvas>
         </div>
       ))}
     </div>
   ))}
-
-  <!-- Scanlines overlay -->
-  <div class="scanlines-overlay"></div>
 </div>
 
 <style>
-  /* Loading indicator */
   .loading-indicator {
-    position: absolute;
-    top: 50%;
-    left: 50%;
+    position: absolute; top: 50%; left: 50%;
     transform: translate(-50%, -50%);
-    z-index: 10;
-    transition: opacity 0.5s ease;
+    z-index: 10; transition: opacity 0.5s ease;
   }
-
-  .loading-indicator.hidden {
-    opacity: 0;
-    pointer-events: none;
-  }
-
-  .loading-dots {
-    display: flex;
-    gap: 6px;
-  }
-
+  .loading-indicator.hidden { opacity: 0; pointer-events: none; }
+  .loading-dots { display: flex; gap: 6px; }
   .loading-dots span {
-    width: 8px;
-    height: 8px;
-    background: #f9e2af;
-    animation: loadingPulse 1s ease-in-out infinite;
+    width: 6px; height: 6px; background: #0064e0;
+    border-radius: 50%; animation: loadingPulse 1s ease-in-out infinite;
   }
-
-  .loading-dots span:nth-child(2) {
-    animation-delay: 0.2s;
-  }
-
-  .loading-dots span:nth-child(3) {
-    animation-delay: 0.4s;
-  }
-
+  .loading-dots span:nth-child(2) { animation-delay: 0.2s; }
+  .loading-dots span:nth-child(3) { animation-delay: 0.4s; }
   @keyframes loadingPulse {
     0%, 100% { opacity: 0.3; transform: scale(0.8); }
     50% { opacity: 1; transform: scale(1); }
   }
-
-  /* Animation classes only - positioning is done via inline styles */
-
-  /* Left to right animation (odd rows: 1, 3) */
-  .scroll-left {
-    animation: scrollLeft 100s linear infinite;
-  }
-
-  /* Right to left animation (even rows: 2, 4) */
-  .scroll-right {
-    animation: scrollRight 90s linear infinite;
-  }
-
+  .scroll-left { animation: scrollLeft 120s linear infinite; }
+  .scroll-right { animation: scrollRight 110s linear infinite; }
   @keyframes scrollLeft {
-    0% {
-      transform: translateX(-25%);
-    }
-    100% {
-      transform: translateX(0%);
-    }
+    0% { transform: translateX(-33%); }
+    100% { transform: translateX(0%); }
   }
-
   @keyframes scrollRight {
-    0% {
-      transform: translateX(-50%);
-    }
-    100% {
-      transform: translateX(-25%);
-    }
+    0% { transform: translateX(-33%); }
+    100% { transform: translateX(0%); }
   }
-
-  .protein-cell {
-    width: 140px;
-    height: 140px;
-    flex-shrink: 0;
-    position: relative;
-  }
-
+  .protein-cell { width: 180px; height: 180px; flex-shrink: 0; }
   .protein-canvas {
-    width: 100%;
-    height: 100%;
-    image-rendering: pixelated;
-    image-rendering: crisp-edges;
+    width: 100%; height: 100%;
+    image-rendering: pixelated; image-rendering: crisp-edges;
   }
-
-  .scanlines-overlay {
-    position: absolute;
-    inset: 0;
-    background: repeating-linear-gradient(
-      0deg,
-      transparent,
-      transparent 2px,
-      rgba(0, 0, 0, 0.03) 2px,
-      rgba(0, 0, 0, 0.03) 4px
-    );
-    pointer-events: none;
-  }
-
-  /* Reduce motion for accessibility */
   @media (prefers-reduced-motion: reduce) {
-    .scroll-left,
-    .scroll-right {
-      animation: none;
-    }
+    .scroll-left, .scroll-right { animation: none; }
   }
 </style>
 
 <script>
-  // Color palettes (from retromol)
   const PALETTES = {
-    blues: (t: number) => {
-      const r = Math.round(222 - t * (222 - 49));
-      const g = Math.round(235 - t * (235 - 130));
-      const b = Math.round(247 - t * (247 - 189));
-      return `rgb(${r},${g},${b})`;
-    },
-    greens: (t: number) => {
-      const r = Math.round(229 - t * (229 - 49));
-      const g = Math.round(245 - t * (245 - 163));
-      const b = Math.round(224 - t * (224 - 84));
-      return `rgb(${r},${g},${b})`;
-    },
-    oranges: (t: number) => {
-      const r = Math.round(254 - t * (254 - 230));
-      const g = Math.round(237 - t * (237 - 85));
-      const b = Math.round(222 - t * (222 - 13));
-      return `rgb(${r},${g},${b})`;
-    },
-    purples: (t: number) => {
-      const r = Math.round(239 - t * (239 - 117));
-      const g = Math.round(237 - t * (237 - 107));
-      const b = Math.round(245 - t * (245 - 177));
-      return `rgb(${r},${g},${b})`;
-    },
-    reds: (t: number) => {
-      const r = Math.round(254 - t * (254 - 222));
-      const g = Math.round(224 - t * (224 - 45));
-      const b = Math.round(210 - t * (210 - 38));
-      return `rgb(${r},${g},${b})`;
-    },
+    blues: (t: number) => `rgb(${Math.round(219-t*219)},${Math.round(234-t*134)},${Math.round(254-t*30)})`,
+    skies: (t: number) => `rgb(${Math.round(224-t*210)},${Math.round(242-t*77)},${Math.round(254-t*21)})`,
+    golds: (t: number) => `rgb(${Math.round(254-t*58)},${Math.round(243-t*88)},${Math.round(199-t*149)})`,
+    teals: (t: number) => `rgb(${Math.round(204-t*191)},${Math.round(241-t*93)},${Math.round(245-t*109)})`,
+    indigos: (t: number) => `rgb(${Math.round(224-t*145)},${Math.round(222-t*152)},${Math.round(254-t*25)})`,
+    greens: (t: number) => `rgb(${Math.round(220-t*198)},${Math.round(242-t*79)},${Math.round(222-t*148)})`,
+    roses: (t: number) => `rgb(${Math.round(254-t*29)},${Math.round(226-t*197)},${Math.round(226-t*154)})`,
   };
 
-  const BG_COLOR = { r: 30, g: 30, b: 46 }; // Mocha base color
+  const BG_COLOR = { r: 240, g: 247, b: 255 };
+  const NUCLEIC_PDBS = new Set(['8FHV','8FHX','8FHZ','1EHZ','1EVV','1TRA','4TNA','1Y26']);
 
-  declare global {
-    interface Window {
-      $3Dmol: any;
-    }
-  }
+  declare global { interface Window { $3Dmol: any; } }
 
   class RetroProteinRenderer {
     private hiddenContainer: HTMLDivElement;
-    // One viewer per unique PDB, shared across multiple canvases
     private viewers: Map<string, { viewer: any; targetCanvases: HTMLCanvasElement[] }> = new Map();
     private animationId: number | null = null;
+    private basePath: string;
 
     constructor() {
-      // Create hidden container for 3Dmol viewers
       this.hiddenContainer = document.createElement('div');
       this.hiddenContainer.style.cssText = 'position:absolute;left:-9999px;top:-9999px;visibility:hidden;';
       document.body.appendChild(this.hiddenContainer);
+      const bgEl = document.querySelector('.retro-protein-bg') as HTMLElement;
+      this.basePath = bgEl?.dataset.base || '';
     }
 
     async init() {
       await this.loadScript();
-
       const cells = document.querySelectorAll('.protein-cell');
-      console.log(`[Protein] Found ${cells.length} cells`);
-
-      // Group cells by PDB ID
       const cellsByPdb: Map<string, HTMLCanvasElement[]> = new Map();
-
       for (const cell of cells) {
         const pdbId = cell.getAttribute('data-pdb-id');
         const canvas = cell.querySelector('.protein-canvas') as HTMLCanvasElement;
         if (!pdbId || !canvas) continue;
-
-        if (!cellsByPdb.has(pdbId)) {
-          cellsByPdb.set(pdbId, []);
-        }
+        if (!cellsByPdb.has(pdbId)) cellsByPdb.set(pdbId, []);
         cellsByPdb.get(pdbId)!.push(canvas);
       }
-
-      console.log(`[Protein] Unique PDBs: ${cellsByPdb.size}`);
-
-      // Create one viewer per unique PDB (max ~10 WebGL contexts)
-      let paletteIndex = 0;
-      for (const [pdbId, canvases] of cellsByPdb) {
-        try {
-          console.log(`[Protein] Creating viewer for ${pdbId} (${canvases.length} canvases)`);
-          const pdbData = await this.fetchPDB(pdbId);
-          await this.createSharedViewer(pdbId, pdbData, canvases, paletteIndex);
-          paletteIndex++;
-        } catch (err) {
-          console.error(`[Protein] Failed to load ${pdbId}:`, err);
-        }
+      const entries = Array.from(cellsByPdb.entries());
+      const pdbDataMap = new Map<string, string>();
+      await Promise.all(entries.map(async ([pdbId]) => {
+        try { pdbDataMap.set(pdbId, await this.fetchPDB(pdbId)); }
+        catch (err) { console.error(`[Protein] Failed: ${pdbId}`, err); }
+      }));
+      let pi = 0;
+      for (const [pdbId, canvases] of entries) {
+        const d = pdbDataMap.get(pdbId);
+        if (!d) continue;
+        try { await this.createViewer(pdbId, d, canvases, pi++); }
+        catch (err) { console.error(`[Protein] Failed: ${pdbId}`, err); }
       }
-
-      console.log(`[Protein] Created ${this.viewers.size} viewers`);
-
-      // Hide loading indicator
-      const loadingEl = document.getElementById('protein-loading');
-      if (loadingEl) {
-        loadingEl.classList.add('hidden');
-      }
-
-      // Start animation loop
+      const el = document.getElementById('protein-loading');
+      if (el) el.classList.add('hidden');
       this.animate();
     }
 
     private loadScript(): Promise<void> {
       return new Promise((resolve, reject) => {
-        if (window.$3Dmol) {
-          resolve();
-          return;
-        }
-
-        const script = document.createElement('script');
-        script.src = 'https://cdnjs.cloudflare.com/ajax/libs/3Dmol/2.0.3/3Dmol-min.js';
-        script.onload = () => resolve();
-        script.onerror = () => reject(new Error('Failed to load 3Dmol.js'));
-        document.head.appendChild(script);
+        if (window.$3Dmol) { resolve(); return; }
+        const s = document.createElement('script');
+        s.src = 'https://cdnjs.cloudflare.com/ajax/libs/3Dmol/2.0.3/3Dmol-min.js';
+        s.onload = () => resolve();
+        s.onerror = () => reject(new Error('Failed to load 3Dmol'));
+        document.head.appendChild(s);
       });
     }
 
     private async fetchPDB(id: string): Promise<string> {
-      const response = await fetch(`https://files.rcsb.org/download/${id}.pdb`);
-      if (!response.ok) throw new Error(`Failed to fetch PDB: ${id}`);
-      return response.text();
+      const r = await fetch(`${this.basePath}pdb/${id}.pdb`);
+      if (!r.ok) throw new Error(`PDB fetch failed: ${id}`);
+      return r.text();
     }
 
-    private async createSharedViewer(pdbId: string, pdbData: string, targetCanvases: HTMLCanvasElement[], paletteIndex: number) {
-      // Create hidden div for this viewer
-      const viewerDiv = document.createElement('div');
-      viewerDiv.style.width = '140px';
-      viewerDiv.style.height = '140px';
-      this.hiddenContainer.appendChild(viewerDiv);
+    private async createViewer(pdbId: string, pdbData: string, targetCanvases: HTMLCanvasElement[], paletteIndex: number) {
+      const div = document.createElement('div');
+      div.style.width = '180px';
+      div.style.height = '180px';
+      this.hiddenContainer.appendChild(div);
 
-      // Create 3Dmol viewer
-      const viewer = window.$3Dmol.createViewer(viewerDiv, {
-        backgroundColor: '#1e1e2e',
-        antialias: true,
-      });
-
+      const viewer = window.$3Dmol.createViewer(div, { backgroundColor: '#f0f7ff', antialias: true });
       viewer.addModel(pdbData, 'pdb');
 
-      // Color by residue index with palette - cycle through palettes
-      const paletteKeys = Object.keys(PALETTES) as (keyof typeof PALETTES)[];
-      const paletteKey = paletteKeys[paletteIndex % paletteKeys.length];
-      const palette = PALETTES[paletteKey];
-
+      const keys = Object.keys(PALETTES) as (keyof typeof PALETTES)[];
+      const palette = PALETTES[keys[paletteIndex % keys.length]];
       const colorfunc = (atom: any) => {
-        const atoms = viewer.selectedAtoms({});
-        const chainAtoms = atoms.filter((a: any) => a.chain === atom.chain);
-        const minResi = Math.min(...chainAtoms.map((a: any) => a.resi));
-        const maxResi = Math.max(...chainAtoms.map((a: any) => a.resi));
-        const t = (atom.resi - minResi) / (maxResi - minResi || 1);
-        return palette(t);
+        const all = viewer.selectedAtoms({});
+        const chain = all.filter((a: any) => a.chain === atom.chain);
+        const mn = Math.min(...chain.map((a: any) => a.resi));
+        const mx = Math.max(...chain.map((a: any) => a.resi));
+        return palette((atom.resi - mn) / (mx - mn || 1));
       };
 
-      viewer.setStyle({}, { cartoon: { colorfunc } });
-      viewer.zoomTo();
+      if (NUCLEIC_PDBS.has(pdbId)) {
+        viewer.setStyle({}, { cartoon: { colorfunc }, stick: { radius: 0.12, colorfunc } });
+      } else {
+        viewer.setStyle({}, { cartoon: { colorfunc } });
+      }
 
-      // Random initial rotation for variety
+      // Simple zoomTo — no manual zoom override
+      viewer.zoomTo();
       viewer.rotate(Math.random() * 360, 'y');
       viewer.rotate(Math.random() * 30 - 15, 'x');
       viewer.render();
 
-      // Setup all target canvases
-      for (const canvas of targetCanvases) {
-        canvas.width = 140;
-        canvas.height = 140;
-      }
-
+      for (const c of targetCanvases) { c.width = 180; c.height = 180; }
       this.viewers.set(pdbId, { viewer, targetCanvases });
     }
 
     private isBackground(r: number, g: number, b: number): boolean {
-      return Math.abs(r - BG_COLOR.r) < 25 &&
-             Math.abs(g - BG_COLOR.g) < 25 &&
-             Math.abs(b - BG_COLOR.b) < 25;
+      return Math.abs(r - BG_COLOR.r) < 25 && Math.abs(g - BG_COLOR.g) < 25 && Math.abs(b - BG_COLOR.b) < 25;
     }
 
-    private pixelateWithOutline(sourceCanvas: HTMLCanvasElement, targetCanvas: HTMLCanvasElement) {
-      const ctx = targetCanvas.getContext('2d');
-      if (!ctx || sourceCanvas.width === 0) return;
-
-      const w = targetCanvas.width;
-      const h = targetCanvas.height;
-      const pixelSize = 3; // Slightly finer pixels for better detail at larger size
-      const pixelW = Math.ceil(w / pixelSize);
-      const pixelH = Math.ceil(h / pixelSize);
-
-      // Temp canvas for pixelation
-      const tempCanvas = document.createElement('canvas');
-      tempCanvas.width = pixelW;
-      tempCanvas.height = pixelH;
-      const tempCtx = tempCanvas.getContext('2d');
-      if (!tempCtx) return;
-
-      // Draw source at small size
-      tempCtx.imageSmoothingEnabled = false;
-      tempCtx.drawImage(sourceCanvas, 0, 0, pixelW, pixelH);
-
-      // Get image data
-      const imageData = tempCtx.getImageData(0, 0, pixelW, pixelH);
-      const data = imageData.data;
-      const outData = new Uint8ClampedArray(data);
-
-      // Make background transparent
-      for (let y = 0; y < pixelH; y++) {
-        for (let x = 0; x < pixelW; x++) {
-          const i = (y * pixelW + x) * 4;
-          if (this.isBackground(data[i], data[i + 1], data[i + 2])) {
-            outData[i + 3] = 0; // Transparent
-          }
-        }
+    private pixelate(src: HTMLCanvasElement, dst: HTMLCanvasElement) {
+      const ctx = dst.getContext('2d');
+      if (!ctx || src.width === 0) return;
+      const w = dst.width, h = dst.height, ps = 2;
+      const pw = Math.ceil(w / ps), ph = Math.ceil(h / ps);
+      const tmp = document.createElement('canvas');
+      tmp.width = pw; tmp.height = ph;
+      const tc = tmp.getContext('2d');
+      if (!tc) return;
+      tc.imageSmoothingEnabled = false;
+      tc.drawImage(src, 0, 0, pw, ph);
+      const img = tc.getImageData(0, 0, pw, ph);
+      const d = img.data, out = new Uint8ClampedArray(d);
+      for (let y = 0; y < ph; y++) for (let x = 0; x < pw; x++) {
+        const i = (y * pw + x) * 4;
+        if (this.isBackground(d[i], d[i+1], d[i+2])) out[i+3] = 0;
       }
-
-      // Add outline
-      for (let y = 0; y < pixelH; y++) {
-        for (let x = 0; x < pixelW; x++) {
-          const i = (y * pixelW + x) * 4;
-          if (!this.isBackground(data[i], data[i + 1], data[i + 2])) {
-            const neighbors = [[-1, 0], [1, 0], [0, -1], [0, 1]];
-            for (const [dx, dy] of neighbors) {
-              const nx = x + dx, ny = y + dy;
-              if (nx >= 0 && nx < pixelW && ny >= 0 && ny < pixelH) {
-                const ni = (ny * pixelW + nx) * 4;
-                if (this.isBackground(data[ni], data[ni + 1], data[ni + 2])) {
-                  outData[ni] = 80;
-                  outData[ni + 1] = 80;
-                  outData[ni + 2] = 100;
-                  outData[ni + 3] = 180;
-                }
+      for (let y = 0; y < ph; y++) for (let x = 0; x < pw; x++) {
+        const i = (y * pw + x) * 4;
+        if (!this.isBackground(d[i], d[i+1], d[i+2])) {
+          for (const [dx, dy] of [[-1,0],[1,0],[0,-1],[0,1]]) {
+            const nx = x+dx, ny = y+dy;
+            if (nx >= 0 && nx < pw && ny >= 0 && ny < ph) {
+              const ni = (ny * pw + nx) * 4;
+              if (this.isBackground(d[ni], d[ni+1], d[ni+2])) {
+                out[ni] = 148; out[ni+1] = 163; out[ni+2] = 184; out[ni+3] = 120;
               }
             }
           }
         }
       }
-
-      tempCtx.putImageData(new ImageData(outData, pixelW, pixelH), 0, 0);
-
-      // Scale up to final size
+      tc.putImageData(new ImageData(out, pw, ph), 0, 0);
       ctx.clearRect(0, 0, w, h);
       ctx.imageSmoothingEnabled = false;
-      ctx.drawImage(tempCanvas, 0, 0, w, h);
+      ctx.drawImage(tmp, 0, 0, w, h);
     }
 
     private animate = () => {
       this.viewers.forEach(({ viewer, targetCanvases }) => {
         viewer.rotate(0.3, 'y');
         viewer.render();
-
-        const mol3dCanvas = viewer.getCanvas();
-        if (mol3dCanvas) {
-          // Copy to all target canvases
-          for (const canvas of targetCanvases) {
-            this.pixelateWithOutline(mol3dCanvas, canvas);
-          }
-        }
+        const c = viewer.getCanvas();
+        if (c) for (const t of targetCanvases) this.pixelate(c, t);
       });
-
       this.animationId = requestAnimationFrame(this.animate);
     };
 
     dispose() {
-      if (this.animationId) {
-        cancelAnimationFrame(this.animationId);
-      }
+      if (this.animationId) cancelAnimationFrame(this.animationId);
       this.hiddenContainer.remove();
     }
   }
 
-  // Initialize when DOM is ready
   document.addEventListener('DOMContentLoaded', () => {
-    const renderer = new RetroProteinRenderer();
-    renderer.init().catch(console.error);
+    new RetroProteinRenderer().init().catch(console.error);
   });
 </script>

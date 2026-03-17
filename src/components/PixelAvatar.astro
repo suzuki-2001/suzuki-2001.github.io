@@ -1,123 +1,24 @@
 ---
-// Pixel-art style avatar component with real image
 const base = import.meta.env.BASE_URL;
 ---
 
-<div class="pixel-avatar-container relative inline-block">
-  <!-- Main avatar frame -->
-  <div class="w-36 h-36 md:w-40 md:h-40 mx-auto relative">
-    <!-- Outer pixel border -->
-    <div class="absolute inset-0 bg-caramel pixel-frame"></div>
-
-    <!-- Inner border -->
-    <div class="absolute inset-1 bg-mocha-overlay pixel-frame"></div>
-
-    <!-- Image container -->
-    <div class="absolute inset-2 bg-mocha-surface pixel-frame overflow-hidden">
-      <img
-        src={`${base}/avatar.jpg`}
-        alt="Shosuke Suzuki"
-        class="w-full h-full object-cover pixel-image"
-        loading="eager"
-      />
-    </div>
+<div class="avatar-container relative inline-block">
+  <div class="w-36 h-36 md:w-40 md:h-40 mx-auto relative rounded-full overflow-hidden ring-3 ring-gold/60 ring-offset-2 ring-offset-white shadow-lg">
+    <img
+      src={`${base}avatar.jpg`}
+      alt="Shosuke Suzuki"
+      class="w-full h-full object-cover"
+      loading="eager"
+    />
   </div>
-
-  <!-- Corner pixels (decorative) -->
-  <div class="absolute -top-1 -left-1 w-3 h-3 bg-pixel-orange"></div>
-  <div class="absolute -top-1 -right-1 w-3 h-3 bg-pixel-orange"></div>
-  <div class="absolute -bottom-1 -left-1 w-3 h-3 bg-pixel-orange"></div>
-  <div class="absolute -bottom-1 -right-1 w-3 h-3 bg-pixel-orange"></div>
-
-  <!-- Animated corner accents -->
-  <div class="absolute top-2 left-2 w-2 h-2 bg-caramel animate-pulse"></div>
-  <div class="absolute top-2 right-2 w-2 h-2 bg-caramel animate-pulse" style="animation-delay: 0.3s;"></div>
-  <div class="absolute bottom-2 left-2 w-2 h-2 bg-caramel animate-pulse" style="animation-delay: 0.5s;"></div>
-  <div class="absolute bottom-2 right-2 w-2 h-2 bg-caramel animate-pulse" style="animation-delay: 0.7s;"></div>
 </div>
 
 <style>
-  .pixel-avatar-container {
-    image-rendering: pixelated;
-    image-rendering: crisp-edges;
+  .avatar-container {
+    transition: transform 0.3s ease;
   }
 
-  .pixel-frame {
-    clip-path: polygon(
-      8px 0,
-      calc(100% - 8px) 0,
-      100% 8px,
-      100% calc(100% - 8px),
-      calc(100% - 8px) 100%,
-      8px 100%,
-      0 calc(100% - 8px),
-      0 8px
-    );
-  }
-
-  .pixel-image {
-    image-rendering: auto;
-    filter: contrast(1.05) saturate(0.9);
-    transition: all 0.3s ease;
-  }
-
-  /* Hover effects - subtle glow */
-  .pixel-avatar-container:hover .pixel-image {
-    filter: contrast(1.1) saturate(1.1) brightness(1.05);
-    transform: scale(1.02);
-  }
-
-  .pixel-avatar-container {
-    transition: transform 0.2s ease;
-    cursor: pointer;
-  }
-
-  .pixel-avatar-container:hover {
-    transform: translateY(-4px);
-  }
-
-  /* Glow effect on hover */
-  .pixel-avatar-container::before {
-    content: '';
-    position: absolute;
-    inset: -4px;
-    background: var(--color-caramel);
-    opacity: 0;
-    filter: blur(12px);
-    transition: opacity 0.3s ease;
-    z-index: -1;
-    border-radius: 8px;
-  }
-
-  .pixel-avatar-container:hover::before {
-    opacity: 0.3;
-  }
-
-  /* Scanline overlay effect for retro feel */
-  .pixel-avatar-container::after {
-    content: '';
-    position: absolute;
-    top: 8px;
-    left: 8px;
-    right: 8px;
-    bottom: 8px;
-    background: repeating-linear-gradient(
-      0deg,
-      transparent,
-      transparent 2px,
-      rgba(0, 0, 0, 0.03) 2px,
-      rgba(0, 0, 0, 0.03) 4px
-    );
-    pointer-events: none;
-    clip-path: polygon(
-      8px 0,
-      calc(100% - 8px) 0,
-      100% 8px,
-      100% calc(100% - 8px),
-      calc(100% - 8px) 100%,
-      8px 100%,
-      0 calc(100% - 8px),
-      0 8px
-    );
+  .avatar-container:hover {
+    transform: translateY(-2px);
   }
 </style>

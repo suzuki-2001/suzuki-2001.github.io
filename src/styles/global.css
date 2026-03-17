@@ -1,32 +1,37 @@
-/* Google Fonts - Pixel font for headings */
-@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Inter:wght@300;400;500;600&display=swap');
+/* Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
 
 @import "tailwindcss";
 
 /* ============================================
-   MOCHA PIXEL ACADEMIA - Global Styles
+   ACADEMIC PORTFOLIO - Meta Research Inspired
    ============================================ */
 
-/* ============================================
-   CSS Custom Properties (Mocha Palette)
-   ============================================ */
 @theme {
-  /* Catppuccin Mocha - Popular Dark Palette */
-  --color-mocha-base: #1e1e2e;
-  --color-mocha-surface: #313244;
-  --color-mocha-overlay: #45475a;
-  --color-mocha-subtle: #585b70;
+  /* Base */
+  --color-base: #FFFFFF;
+  --color-base-alt: #F5F6F7;
+  --color-base-blue: #F0F7FF;
+  --color-surface: #FFFFFF;
+  --color-border: #DCE0E5;
+  --color-border-light: #EEF0F2;
 
-  /* Catppuccin Accent Colors */
-  --color-caramel: #f9e2af;
-  --color-caramel-light: #f5c2e7;
-  --color-cream: #cdd6f4;
-  --color-warm-white: #cdd6f4;
-  --color-pixel-orange: #fab387;
-  --color-pixel-green: #a6e3a1;
+  /* Text */
+  --color-navy: #1C2B33;
+  --color-navy-light: #2C3E50;
+  --color-slate: #606770;
+  --color-slate-light: #8A8D91;
+
+  /* Accent — Meta blue */
+  --color-blue: #0064E0;
+  --color-blue-light: #1877F2;
+  --color-sky: #0EA5E9;
+  --color-sky-light: #38BDF8;
+  --color-gold: #C4902A;
+  --color-gold-light: #D4A843;
+  --color-green: #31A24C;
 
   /* Fonts */
-  --font-pixel: 'Press Start 2P', monospace;
   --font-body: 'Inter', system-ui, sans-serif;
 }
 
@@ -39,232 +44,66 @@ html {
 
 body {
   font-family: var(--font-body);
-  background-color: var(--color-mocha-base);
-  color: var(--color-warm-white);
+  background-color: var(--color-base);
+  color: var(--color-navy);
   line-height: 1.7;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-/* Pixel font for headings */
-h1, h2, h3 {
-  font-family: var(--font-pixel);
-}
-
-/* ============================================
-   Dot Grid Background Pattern
-   ============================================ */
-.dot-grid {
-  background-image: radial-gradient(
-    circle,
-    var(--color-mocha-subtle) 1px,
-    transparent 1px
-  );
-  background-size: 24px 24px;
-}
-
-/* ============================================
-   Pixel-style Decorations
-   ============================================ */
-.pixel-border {
-  box-shadow:
-    4px 0 0 0 var(--color-caramel),
-    -4px 0 0 0 var(--color-caramel),
-    0 4px 0 0 var(--color-caramel),
-    0 -4px 0 0 var(--color-caramel);
-}
-
-.pixel-underline {
-  position: relative;
-}
-
-.pixel-underline::after {
-  content: '';
-  position: absolute;
-  left: 0;
-  bottom: -8px;
-  width: 100%;
-  height: 4px;
-  background: repeating-linear-gradient(
-    to right,
-    var(--color-caramel) 0px,
-    var(--color-caramel) 8px,
-    transparent 8px,
-    transparent 12px
-  );
-}
-
-/* ============================================
-   Retro Cursor Blink
-   ============================================ */
-.cursor-blink::after {
-  content: '_';
-  animation: blink 1s step-end infinite;
-  color: var(--color-pixel-orange);
-}
-
-@keyframes blink {
-  0%, 50% { opacity: 1; }
-  51%, 100% { opacity: 0; }
-}
-
-/* ============================================
-   Typewriter Effect
-   ============================================ */
-.typewriter {
-  display: inline;
-}
-
-.cursor {
-  color: var(--color-pixel-orange);
-  animation: blink 0.7s step-end infinite;
-}
-
-.typewriter-fade {
-  transition: opacity 0.5s ease;
-}
-
-/* ============================================
-   Glitch Effect
-   ============================================ */
-.glitch {
-  position: relative;
-}
-
-.glitch:hover {
-  animation: glitch 0.3s ease;
-}
-
-@keyframes glitch {
-  0% {
-    transform: translate(0);
-  }
-  20% {
-    transform: translate(-2px, 2px);
-    text-shadow: 2px 0 var(--color-pixel-orange), -2px 0 var(--color-pixel-green);
-  }
-  40% {
-    transform: translate(2px, -2px);
-    text-shadow: -2px 0 var(--color-pixel-orange), 2px 0 var(--color-pixel-green);
-  }
-  60% {
-    transform: translate(-1px, 1px);
-    text-shadow: 1px 0 var(--color-pixel-orange), -1px 0 var(--color-pixel-green);
-  }
-  80% {
-    transform: translate(1px, -1px);
-    text-shadow: -1px 0 var(--color-pixel-orange), 1px 0 var(--color-pixel-green);
-  }
-  100% {
-    transform: translate(0);
-    text-shadow: none;
-  }
-}
-
-/* ============================================
-   Pixel Hover Effects
-   ============================================ */
-.pixel-hover {
-  transition: all 0.1s steps(3);
-}
-
-.pixel-hover:hover {
-  transform: translate(-2px, -2px);
-  box-shadow:
-    4px 4px 0 0 var(--color-caramel);
-}
-
-/* ============================================
-   Section Divider (Pixel Style)
-   ============================================ */
-.section-divider {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
-  padding: 2rem 0;
-}
-
-.section-divider::before,
-.section-divider::after {
-  content: '';
-  height: 4px;
-  flex: 1;
-  max-width: 100px;
-  background: repeating-linear-gradient(
-    to right,
-    var(--color-mocha-subtle) 0px,
-    var(--color-mocha-subtle) 8px,
-    transparent 8px,
-    transparent 16px
-  );
-}
-
-/* ============================================
-   Scrollbar (Pixel Style)
-   ============================================ */
-::-webkit-scrollbar {
-  width: 12px;
-}
-
-::-webkit-scrollbar-track {
-  background: var(--color-mocha-surface);
-}
-
-::-webkit-scrollbar-thumb {
-  background: var(--color-mocha-subtle);
-  border: 2px solid var(--color-mocha-surface);
-}
-
-::-webkit-scrollbar-thumb:hover {
-  background: var(--color-caramel);
-}
-
-/* ============================================
-   Selection
-   ============================================ */
 ::selection {
-  background: var(--color-caramel);
-  color: var(--color-mocha-base);
+  background: var(--color-blue);
+  color: white;
 }
 
-/* ============================================
-   Focus States (Accessibility)
-   ============================================ */
 :focus-visible {
-  outline: 3px solid var(--color-pixel-orange);
+  outline: 3px solid var(--color-sky);
   outline-offset: 2px;
 }
 
-/* ============================================
-   Link Styles
-   ============================================ */
 a {
-  color: var(--color-caramel);
+  color: var(--color-blue);
   text-decoration: none;
   transition: color 0.2s ease;
 }
 
 a:hover {
-  color: var(--color-pixel-orange);
+  color: var(--color-blue-light);
+}
+
+/* ============================================
+   Scrollbar
+   ============================================ */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--color-base-alt);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--color-border);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-slate-light);
 }
 
 /* ============================================
    Utility Classes
    ============================================ */
-.text-pixel {
-  font-family: var(--font-pixel);
-  letter-spacing: 1px;
-}
-
 .text-gradient {
-  background: linear-gradient(135deg, var(--color-caramel), var(--color-pixel-orange));
+  background: linear-gradient(135deg, var(--color-blue), var(--color-sky));
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
 }
 
-/* Fade in animation */
+/* ============================================
+   Animations
+   ============================================ */
 .fade-in {
   animation: fadeIn 0.6s ease-out forwards;
 }
@@ -272,7 +111,7 @@ a:hover {
 @keyframes fadeIn {
   from {
     opacity: 0;
-    transform: translateY(20px);
+    transform: translateY(16px);
   }
   to {
     opacity: 1;
@@ -280,7 +119,6 @@ a:hover {
   }
 }
 
-/* Stagger children animations */
 .stagger-children > * {
   opacity: 0;
   animation: fadeIn 0.5s ease-out forwards;
@@ -292,29 +130,17 @@ a:hover {
 .stagger-children > *:nth-child(4) { animation-delay: 0.4s; }
 .stagger-children > *:nth-child(5) { animation-delay: 0.5s; }
 
-/* ============================================
-   Page Load Animation
-   ============================================ */
 .page-load {
-  animation: pageLoad 0.6s ease-out;
+  animation: pageLoad 0.4s ease-out;
 }
 
 @keyframes pageLoad {
-  0% {
-    opacity: 0;
-    filter: brightness(1.5) contrast(0.8);
-  }
-  50% {
-    filter: brightness(1.1) contrast(0.95);
-  }
-  100% {
-    opacity: 1;
-    filter: brightness(1) contrast(1);
-  }
+  from { opacity: 0; }
+  to { opacity: 1; }
 }
 
 /* ============================================
-   Enhanced Card Hover Effects
+   Card Hover
    ============================================ */
 .card-hover {
   transition: all 0.2s ease;
@@ -322,15 +148,27 @@ a:hover {
 
 .card-hover:hover {
   transform: translateY(-2px);
-  border-color: var(--color-caramel) !important;
-  box-shadow: 0 4px 12px rgba(249, 226, 175, 0.1);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+  border-color: var(--color-blue) !important;
 }
 
-/* Subtle glow effect on hover */
-.glow-hover {
-  transition: all 0.3s ease;
+/* ============================================
+   Typewriter
+   ============================================ */
+.typewriter {
+  display: inline;
 }
 
-.glow-hover:hover {
-  box-shadow: 0 0 20px rgba(249, 226, 175, 0.15);
+.cursor {
+  color: var(--color-blue);
+  animation: blink 0.7s step-end infinite;
+}
+
+.typewriter-fade {
+  transition: opacity 0.5s ease;
+}
+
+@keyframes blink {
+  0%, 50% { opacity: 1; }
+  51%, 100% { opacity: 0; }
 }

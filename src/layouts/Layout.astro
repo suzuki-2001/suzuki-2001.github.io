@@ -18,24 +18,20 @@ const base = import.meta.env.BASE_URL;
     <meta name="description" content={description} />
     <meta name="generator" content={Astro.generator} />
 
-    <!-- Favicon -->
-    <link rel="icon" type="image/png" href={`${base}/1l2y_coolwarm.png`} />
+    <link rel="icon" type="image/png" href={`${base}1l2y_coolwarm.png`} />
 
-    <!-- Open Graph -->
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:type" content="website" />
-    <meta property="og:image" content={`${base}/og-image.svg`} />
+    <meta property="og:image" content={`${base}og-image.svg`} />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
 
-    <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content={title} />
     <meta name="twitter:description" content={description} />
-    <meta name="twitter:image" content={`${base}/og-image.svg`} />
+    <meta name="twitter:image" content={`${base}og-image.svg`} />
 
-    <!-- JSON-LD Structured Data -->
     <script type="application/ld+json" set:html={JSON.stringify({
       "@context": "https://schema.org",
       "@type": "Person",
@@ -47,14 +43,14 @@ const base = import.meta.env.BASE_URL;
         "department": "Graduate School of Systems and Information Engineering"
       },
       "email": "suzuki.shosuke@kde.cs.tsukuba.ac.jp",
-      "url": "https://suzuki-2001.github.io/mypage/",
+      "url": "https://suzuki-2001.github.io/",
       "sameAs": [
         "https://github.com/suzuki-2001",
         "https://twitter.com/suzuki2001_",
         "https://www.linkedin.com/in/suzuki2001",
         "https://orcid.org/0009-0001-3354-195X"
       ],
-      "knowsAbout": ["Protein Design", "Genomic Language Models", "Deep Learning", "Bioinformatics"],
+      "knowsAbout": ["Protein Dynamics", "Protein Design", "Genomic Language Models", "Deep Learning", "Bioinformatics"],
       "alumniOf": {
         "@type": "CollegeOrUniversity",
         "name": "University of Tsukuba"
@@ -63,62 +59,66 @@ const base = import.meta.env.BASE_URL;
 
     <title>{title}</title>
   </head>
-  <body class="dot-grid min-h-screen page-load">
-    <!-- Navigation -->
-    <nav class="fixed top-0 left-0 right-0 z-50 bg-mocha-base/90 backdrop-blur-sm border-b border-mocha-subtle/50">
-      <div class="max-w-4xl mx-auto px-6 py-4 flex items-center justify-between">
-        <a href="#" class="text-pixel text-xs text-caramel hover:text-pixel-orange transition-colors">
-          &gt; RESEARCHER_
+  <body class="min-h-screen page-load">
+    <!-- Navigation — Meta Research style -->
+    <nav class="fixed top-0 left-0 right-0 z-50 bg-white/95 backdrop-blur-md border-b border-border">
+      <div class="max-w-5xl mx-auto px-6 h-14 flex items-center justify-between">
+        <!-- Logo / Name -->
+        <a href="#" class="flex items-center gap-2 hover:opacity-80 transition-opacity">
+          <div class="w-7 h-7 rounded-lg bg-blue flex items-center justify-center">
+            <span class="text-white text-xs font-bold">SS</span>
+          </div>
+          <span class="text-sm font-semibold text-navy hidden sm:inline">Shosuke Suzuki</span>
         </a>
 
         <!-- Desktop nav -->
-        <div class="hidden sm:flex gap-6">
-          <a href="#about" class="text-pixel text-[10px] hover:text-caramel transition-colors">About</a>
-          <a href="#publications" class="text-pixel text-[10px] hover:text-caramel transition-colors">Pubs</a>
-          <a href="#awards" class="text-pixel text-[10px] hover:text-caramel transition-colors">Awards</a>
-          <a href="#contact" class="text-pixel text-[10px] hover:text-caramel transition-colors">Contact</a>
+        <div class="hidden sm:flex items-center gap-1">
+          <a href="#about" class="nav-link px-3 py-1.5 text-sm text-slate hover:text-blue hover:bg-base-alt rounded-md transition-all">About</a>
+          <a href="#research" class="nav-link px-3 py-1.5 text-sm text-slate hover:text-blue hover:bg-base-alt rounded-md transition-all">Research</a>
+          <a href="#publications" class="nav-link px-3 py-1.5 text-sm text-slate hover:text-blue hover:bg-base-alt rounded-md transition-all">Publications</a>
+          <a href="#awards" class="nav-link px-3 py-1.5 text-sm text-slate hover:text-blue hover:bg-base-alt rounded-md transition-all">Awards</a>
+          <a href="#contact" class="nav-link px-3 py-1.5 text-sm text-slate hover:text-blue hover:bg-base-alt rounded-md transition-all">Contact</a>
         </div>
 
-        <!-- Mobile hamburger button -->
-        <button id="menu-toggle" class="sm:hidden flex flex-col gap-1 p-2" aria-label="Toggle menu">
-          <span class="hamburger-line w-5 h-0.5 bg-caramel transition-all"></span>
-          <span class="hamburger-line w-5 h-0.5 bg-caramel transition-all"></span>
-          <span class="hamburger-line w-5 h-0.5 bg-caramel transition-all"></span>
+        <!-- Mobile hamburger -->
+        <button id="menu-toggle" class="sm:hidden flex flex-col gap-1.5 p-2" aria-label="Toggle menu">
+          <span class="hamburger-line w-5 h-0.5 bg-navy transition-all"></span>
+          <span class="hamburger-line w-5 h-0.5 bg-navy transition-all"></span>
+          <span class="hamburger-line w-5 h-0.5 bg-navy transition-all"></span>
         </button>
       </div>
 
       <!-- Mobile menu -->
-      <div id="mobile-menu" class="mobile-menu sm:hidden bg-mocha-base/95 border-t border-mocha-subtle/30 hidden">
-        <div class="max-w-4xl mx-auto px-6 py-4 flex flex-col gap-4">
-          <a href="#about" class="mobile-link text-pixel text-[10px] hover:text-caramel transition-colors py-2">About</a>
-          <a href="#publications" class="mobile-link text-pixel text-[10px] hover:text-caramel transition-colors py-2">Publications</a>
-          <a href="#awards" class="mobile-link text-pixel text-[10px] hover:text-caramel transition-colors py-2">Awards</a>
-          <a href="#contact" class="mobile-link text-pixel text-[10px] hover:text-caramel transition-colors py-2">Contact</a>
+      <div id="mobile-menu" class="mobile-menu sm:hidden bg-white/98 backdrop-blur-md border-t border-border hidden">
+        <div class="max-w-5xl mx-auto px-6 py-3 flex flex-col">
+          <a href="#about" class="mobile-link py-2.5 text-sm text-slate hover:text-blue transition-colors">About</a>
+          <a href="#research" class="mobile-link py-2.5 text-sm text-slate hover:text-blue transition-colors">Research</a>
+          <a href="#publications" class="mobile-link py-2.5 text-sm text-slate hover:text-blue transition-colors">Publications</a>
+          <a href="#awards" class="mobile-link py-2.5 text-sm text-slate hover:text-blue transition-colors">Awards</a>
+          <a href="#contact" class="mobile-link py-2.5 text-sm text-slate hover:text-blue transition-colors">Contact</a>
         </div>
       </div>
     </nav>
 
-    <!-- Main Content -->
-    <main class="pt-20">
+    <main class="pt-14">
       <slot />
     </main>
 
-    <!-- Footer -->
-    <footer class="py-6 mt-12">
-      <div class="max-w-4xl mx-auto px-6 text-center">
-        <p class="text-pixel text-[8px] text-mocha-subtle/60 tracking-wider">
-          © 2025 Shosuke Suzuki
+    <footer class="py-8 mt-12 border-t border-border">
+      <div class="max-w-5xl mx-auto px-6 text-center">
+        <p class="text-xs text-slate-light">
+          &copy; 2026 Shosuke Suzuki
         </p>
       </div>
     </footer>
 
-    <!-- Scroll to top button -->
+    <!-- Scroll to top -->
     <button
       id="scroll-top"
-      class="scroll-top-btn fixed bottom-6 right-6 w-12 h-12 bg-mocha-surface border-4 border-caramel text-caramel opacity-0 pointer-events-none transition-all duration-300 hover:bg-caramel hover:text-mocha-base"
+      class="scroll-top-btn fixed bottom-6 right-6 w-9 h-9 bg-white border border-border rounded-full text-slate shadow-sm opacity-0 pointer-events-none transition-all duration-300 hover:bg-blue hover:text-white hover:border-blue hover:shadow-md"
       aria-label="Scroll to top"
     >
-      <span class="scroll-arrow text-pixel text-xs">&uarr;</span>
+      <span class="text-xs">&uarr;</span>
     </button>
 
     <style>
@@ -131,30 +131,9 @@ const base = import.meta.env.BASE_URL;
       }
 
       .scroll-top-btn:hover {
-        transform: translateY(-4px);
-        box-shadow: 0 4px 0 0 var(--color-mocha-overlay);
+        transform: translateY(-2px);
       }
 
-      .scroll-top-btn:active {
-        transform: translateY(0);
-        box-shadow: none;
-      }
-
-      .scroll-arrow {
-        display: inline-block;
-        transition: transform 0.2s ease;
-      }
-
-      .scroll-top-btn:hover .scroll-arrow {
-        animation: arrow-bounce 0.5s ease infinite;
-      }
-
-      @keyframes arrow-bounce {
-        0%, 100% { transform: translateY(0); }
-        50% { transform: translateY(-3px); }
-      }
-
-      /* Mobile menu styles */
       .mobile-menu {
         max-height: 0;
         overflow: hidden;
@@ -169,7 +148,6 @@ const base = import.meta.env.BASE_URL;
         display: block;
       }
 
-      /* Hamburger animation */
       #menu-toggle.active .hamburger-line:nth-child(1) {
         transform: rotate(45deg) translate(2px, 4px);
       }
@@ -184,7 +162,6 @@ const base = import.meta.env.BASE_URL;
     </style>
 
     <script>
-      // Scroll to top button visibility
       const scrollBtn = document.getElementById('scroll-top');
 
       window.addEventListener('scroll', () => {
@@ -199,7 +176,6 @@ const base = import.meta.env.BASE_URL;
         window.scrollTo({ top: 0, behavior: 'smooth' });
       });
 
-      // Intersection Observer for fade-in animations
       const observerOptions = {
         threshold: 0.1,
         rootMargin: '0px 0px -50px 0px'
@@ -218,12 +194,11 @@ const base = import.meta.env.BASE_URL;
         observer.observe(el);
       });
 
-      // Typewriter effect
       const typewriterEl = document.getElementById('typewriter') as HTMLElement | null;
       if (typewriterEl) {
         const text = 'Shosuke Suzuki';
         let i = 0;
-        const speed = 100; // ms per character
+        const speed = 80;
         const el = typewriterEl;
 
         function typeWriter() {
@@ -232,19 +207,14 @@ const base = import.meta.env.BASE_URL;
             i++;
             setTimeout(typeWriter, speed);
           } else {
-            // Show title after name is typed
             const fadeEl = document.querySelector('.typewriter-fade') as HTMLElement | null;
-            if (fadeEl) {
-              fadeEl.style.opacity = '1';
-            }
+            if (fadeEl) fadeEl.style.opacity = '1';
           }
         }
 
-        // Start typing after a short delay
-        setTimeout(typeWriter, 500);
+        setTimeout(typeWriter, 300);
       }
 
-      // Mobile menu toggle
       const menuToggle = document.getElementById('menu-toggle');
       const mobileMenu = document.getElementById('mobile-menu');
 
@@ -253,9 +223,7 @@ const base = import.meta.env.BASE_URL;
         mobileMenu?.classList.toggle('open');
       });
 
-      // Close menu when clicking a link
-      const mobileLinks = document.querySelectorAll('.mobile-link');
-      mobileLinks.forEach(link => {
+      document.querySelectorAll('.mobile-link').forEach(link => {
         link.addEventListener('click', () => {
           menuToggle?.classList.remove('active');
           mobileMenu?.classList.remove('open');
