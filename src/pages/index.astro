@@ -29,8 +29,8 @@ const researchAreas = [
   },
   {
     title: "Genomic Language Models",
-    description: "Developing transformer-based models for plant genome annotation and regulatory element prediction with novel k-mer tokenization strategies.",
-    keywords: ["NLP", "Genomics", "Transformers", "Gene Annotation"]
+    description: "Building and applying genomic foundation models such as Nucleotide Transformer and Evo to learn the regulatory grammar of genomes, enabling functional sequence prediction and rational genome design across organisms.",
+    keywords: ["Foundation Models", "Genomics", "DNA Language Models", "Sequence Design"]
   },
   {
     title: "Deep Learning for Biology",
@@ -40,6 +40,14 @@ const researchAreas = [
 ];
 
 const publications = [
+  {
+    title: "ConforFlux: Particle-Guided Trunk Repulsion for Diverse Protein Conformations",
+    authors: "S. Suzuki, T. Amagasa",
+    venue: "bioRxiv",
+    year: "2026",
+    type: "preprint" as const,
+    link: "https://doi.org/10.64898/2026.05.16.725138"
+  },
   {
     title: "Steering Conformational Sampling in Boltz-2 via Pair Representation Scaling",
     authors: "S. Suzuki, T. Amagasa",
@@ -74,13 +82,6 @@ const conferences = [
 ];
 
 const awards = [
-  {
-    title: "Protein Design Competition (NiG)",
-    event: "Adaptyv Bio - Selected for Expert Review & Wet Lab Validation",
-    year: "2025",
-    ongoing: true,
-    detail: null
-  },
   {
     title: "MBSJ-EMBO Poster Award",
     event: "The 48th Annual Meeting of the Molecular Biology Society of Japan",
@@ -147,14 +148,14 @@ const computing = [
 
 const researchAssistant = [
   {
-    org: "National Institute of Advanced Industrial Science and Technology (AIST)",
-    department: "Human Informatics and Interaction Research Institute",
-    period: "2024.09 - Present"
+    org: "AI-Empowered Life Science Initiative (ALIS)",
+    department: null,
+    period: null
   },
   {
-    org: "National Institute of Genetics (NIG)",
-    department: "ALIS Center, BioGenAI Research Group",
-    period: "2025.04 - Present"
+    org: "National Institute of Advanced Industrial Science and Technology (AIST)",
+    department: "Human Informatics and Interaction Research Institute",
+    period: "2024.09 - 2026.03"
   },
   {
     org: "National Agriculture and Food Research Organization (NARO)",
@@ -240,7 +241,7 @@ const researchAssistant = [
           {researchAssistant.map(ra => (
             <div class="text-sm">
               <div class="text-navy font-medium text-xs leading-tight">{ra.org}</div>
-              <div class="text-slate-light text-xs">{ra.period}</div>
+              {ra.period && <div class="text-slate-light text-xs">{ra.period}</div>}
             </div>
           ))}
         </div>
