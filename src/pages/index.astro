@@ -19,7 +19,11 @@ const profile = {
   linkedin: "https://www.linkedin.com/in/suzuki2001"
 };
 
-const about = `I am a Ph.D. student in Computer Science at the University of Tsukuba. My research focuses on protein dynamics and design, genomic language models, and deep learning for biology. I am particularly interested in conformational sampling, de novo binder design, and transformer-based approaches to biological sequence analysis.`;
+const links = {
+  ariizumi: "https://sites.google.com/view/ariizumi-laboratory/home",
+  kde: "https://www.kde.cs.tsukuba.ac.jp/",
+  alis: "https://ds.rois.ac.jp/en_center10/"
+};
 
 const researchAreas = [
   {
@@ -49,7 +53,7 @@ const publications = [
     link: "https://doi.org/10.64898/2026.05.16.725138"
   },
   {
-    title: "Steering Conformational Sampling in Boltz-2 via Pair Representation Scaling",
+    title: "Biasing Conformational Sampling in AlphaFold 3 and Boltz-2 via Pair Representation Scaling",
     authors: "S. Suzuki, T. Amagasa",
     venue: "bioRxiv",
     year: "2026",
@@ -66,18 +70,92 @@ const publications = [
   }
 ];
 
-const conferences = [
+type Conference = {
+  title: string;
+  type: string | null;
+  location: string;
+  date: string;
+  upcoming: boolean;
+  presentations: string[];
+};
+
+const conferences: Conference[] = [
+  {
+    title: "BMB2026 - MBSJ / JBS Joint Meeting",
+    type: null,
+    location: "Yokohama, Japan",
+    date: "Dec 2026",
+    upcoming: true,
+    presentations: [
+      "Generating diverse protein conformations by repulsion in the conditioning representation"
+    ]
+  },
+  {
+    title: "ICBBS 2026 - 64th Annual Meeting of the BSJ",
+    type: "Poster",
+    location: "Busan, Korea",
+    date: "Nov 2026",
+    upcoming: true,
+    presentations: [
+      "Surfacing the alternative conformations latent in deep-learning protein structure predictors"
+    ]
+  },
+  {
+    title: "CBI Society Annual Meeting 2026",
+    type: null,
+    location: "Tokyo, Japan",
+    date: "Oct 2026",
+    upcoming: true,
+    presentations: []
+  },
+  {
+    title: "IIBMP 2026 - JSBi Annual Meeting",
+    type: "Poster / Workshop",
+    location: "Sagamihara, Japan",
+    date: "Aug 2026",
+    upcoming: true,
+    presentations: [
+      "Expanding conformational sampling in diffusion-based protein structure prediction models at inference time",
+      "Do genomic foundation models learn male sterility? An interpretation with sparse autoencoders"
+    ]
+  },
+  {
+    title: "The 66th Biophysics Summer School",
+    type: "Hands-on / Poster",
+    location: "Nagano, Japan",
+    date: "Aug 2026",
+    upcoming: true,
+    presentations: []
+  },
   {
     title: "Pacific Symposium on Biocomputing (PSB) 2026",
     type: "Poster",
     location: "Hawaii, USA",
-    date: "Jan 2026"
+    date: "Jan 2026",
+    upcoming: false,
+    presentations: [
+      "Predicting alternative protein conformations by perturbing pair representations"
+    ]
   },
   {
     title: "The 48th Annual Meeting of the Molecular Biology Society of Japan",
     type: "Poster / Forum",
     location: "Yokohama, Japan",
-    date: "Dec 2025"
+    date: "Dec 2025",
+    upcoming: false,
+    presentations: [
+      "Steering dynamic protein structures by latent space manipulation of deep generative models"
+    ]
+  },
+  {
+    title: "The 143rd Meeting of the Japanese Society of Breeding",
+    type: "Oral",
+    location: "Shizuoka, Japan",
+    date: "Mar 2023",
+    upcoming: false,
+    presentations: [
+      "Development of non-destructive, high-throughput metabolite measurement for a Micro-Tom mutant population"
+    ]
   }
 ];
 
@@ -127,12 +205,14 @@ const funding = [
   {
     name: "JSPS DC2",
     full: "日本学術振興会 特別研究員 DC2",
+    fullEn: "JSPS Research Fellowship for Young Scientists (DC2)",
     period: "2026.04 - 2028.03",
     highlight: true
   },
   {
     name: "JST SPRING",
     full: "次世代研究者挑戦的研究プログラム",
+    fullEn: "Support for Pioneering Research Initiated by the Next Generation",
     period: "2025.04 - 2026.03",
     highlight: false
   }
@@ -142,15 +222,16 @@ const computing = [
   {
     name: "Osaka Univ. D3 Center SQUID",
     detail: "世界と伍する学生育成特設枠",
+    detailEn: "Special Quota for Fostering Globally Competitive Students",
     period: "2026.04 - 2027.03"
   }
 ];
 
 const researchAssistant = [
   {
-    org: "AI-Empowered Life Science Initiative (ALIS)",
-    department: null,
-    period: null
+    org: "Research Organization of Information and Systems (ROIS)",
+    department: "AI-Empowered Life Science Initiative (ALIS)",
+    period: "2026.06 - Present"
   },
   {
     org: "National Institute of Advanced Industrial Science and Technology (AIST)",
@@ -190,7 +271,15 @@ const researchAssistant = [
 
     <div class="bg-white border border-border rounded-lg p-6 shadow-sm">
       <p class="text-slate leading-relaxed text-sm">
-        {about}
+        I am a Ph.D. student in Computer Science at the University of Tsukuba, supervised by Toshiyuki Amagasa at the <a
+        href={links.kde} target="_blank" rel="noopener noreferrer" class="hover:underline">Knowledge and Data Engineering
+        Laboratory</a>, where I work on conformational sampling in deep learning models of protein structure. As an
+        undergraduate I studied under Tohru Ariizumi in the <a href={links.ariizumi} target="_blank" rel="noopener noreferrer"
+        class="hover:underline">Ariizumi Laboratory</a>, developing non-destructive, high-throughput metabolite
+        measurement for Micro-Tom tomato mutant populations, and under Naoya Fukuda for my master's, working on genomic
+        language models for plant genomes. I continue that work on genomic language models as a research assistant at
+        the ROIS <a href={links.alis} target="_blank" rel="noopener noreferrer" class="hover:underline">AI-Empowered Life
+        Science Initiative (ALIS)</a>.
       </p>
     </div>
 
@@ -221,6 +310,7 @@ const researchAssistant = [
               ) : (
                 <div class="text-slate text-xs">{fund.full}</div>
               )}
+              <div class="text-slate-light text-[11px] leading-snug">{fund.fullEn}</div>
               <div class="text-slate-light text-xs">{fund.period}</div>
             </div>
           ))}
@@ -228,6 +318,7 @@ const researchAssistant = [
             <div class="text-sm">
               <div class="text-navy font-medium text-xs">{comp.name}</div>
               <div class="text-gold text-xs font-medium">{comp.detail}</div>
+              <div class="text-slate-light text-[11px] leading-snug">{comp.detailEn}</div>
               <div class="text-slate-light text-xs">{comp.period}</div>
             </div>
           ))}
@@ -241,6 +332,7 @@ const researchAssistant = [
           {researchAssistant.map(ra => (
             <div class="text-sm">
               <div class="text-navy font-medium text-xs leading-tight">{ra.org}</div>
+              {ra.department && <div class="text-slate text-xs leading-tight">{ra.department}</div>}
               {ra.period && <div class="text-slate-light text-xs">{ra.period}</div>}
             </div>
           ))}
@@ -291,12 +383,24 @@ const researchAssistant = [
 
       <div class="grid sm:grid-cols-2 gap-4">
         {conferences.map(conf => (
-          <div class="bg-white border border-border rounded-lg p-5 card-hover">
+          <div class={`bg-white border rounded-lg p-5 card-hover ${conf.upcoming ? 'border-green/40' : 'border-border'}`}>
             <div class="flex justify-between items-start gap-2 mb-1">
               <h3 class="text-navy font-medium text-sm leading-tight">{conf.title}</h3>
-              <span class="text-xs text-blue font-medium whitespace-nowrap">{conf.date}</span>
+              <span class={`text-xs font-medium whitespace-nowrap ${conf.upcoming ? 'text-green' : 'text-blue'}`}>{conf.date}</span>
             </div>
-            <p class="text-slate-light text-xs">{conf.type} · {conf.location}</p>
+            <p class="text-slate-light text-xs">{conf.type ? `${conf.type} · ${conf.location}` : conf.location}</p>
+            {conf.presentations.length > 0 && (
+              <details class="mt-2">
+                <summary class="conf-toggle text-xs text-blue cursor-pointer select-none hover:underline">
+                  {conf.presentations.length === 1 ? '1 presentation' : `${conf.presentations.length} presentations`}
+                </summary>
+                <ul class="mt-2 space-y-1.5 pl-4 list-disc marker:text-blue/40">
+                  {conf.presentations.map(p => (
+                    <li class="text-slate text-xs leading-snug">{p}</li>
+                  ))}
+                </ul>
+              </details>
+            )}
           </div>
         ))}
       </div>
@@ -352,3 +456,24 @@ const researchAssistant = [
     </div>
   </section>
 </Layout>
+
+<style>
+  .conf-toggle {
+    list-style: none;
+  }
+
+  .conf-toggle::-webkit-details-marker {
+    display: none;
+  }
+
+  .conf-toggle::before {
+    content: '\25b8';
+    display: inline-block;
+    margin-right: 0.35em;
+    transition: transform 0.15s ease;
+  }
+
+  details[open] > .conf-toggle::before {
+    transform: rotate(90deg);
+  }
+</style>
