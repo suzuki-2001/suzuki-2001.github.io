@@ -3,12 +3,13 @@ interface Props {
   title: string;
   authors: string;
   venue: string;
+  details?: string;
   year: string;
   link?: string;
   type?: 'paper' | 'preprint' | 'workshop';
 }
 
-const { title, authors, venue, year, link, type = 'paper' } = Astro.props;
+const { title, authors, venue, details, year, link, type = 'paper' } = Astro.props;
 
 const typeColors = {
   paper: 'bg-blue/10 text-blue',
@@ -49,5 +50,7 @@ const typeLabels = {
   <p class="text-xs text-slate mb-1">{authors}</p>
 
   <!-- Venue -->
-  <p class="text-xs text-blue/70 italic">{venue}</p>
+  <p class="text-xs text-blue/70">
+    <span class="italic">{venue}</span>{details && <span>, {details}</span>}
+  </p>
 </article>
