@@ -27,19 +27,14 @@ const links = {
 
 const researchAreas = [
   {
-    title: "Protein Dynamics & Design",
-    description: "Conformational sampling in protein structure prediction models, dynamics-driven de novo binder design, and latent space manipulation for exploring protein conformational landscapes.",
-    keywords: ["Conformational Sampling", "Binder Design", "Protein Dynamics", "Generative AI"]
+    title: "Generative Models for Biomolecules",
+    description: "Diffusion- and language-model-based generators of protein structure and sequence. I intervene on their internal representations at inference time — rescaling pair representations, adding repulsion in the trunk — to widen the conformational ensembles they produce and to steer design toward function.",
+    keywords: ["Protein Structure Prediction", "Conformational Sampling", "Diffusion Models", "Inference-time Control", "Binder Design"]
   },
   {
-    title: "Genomic Language Models",
-    description: "Building and applying genomic foundation models such as Nucleotide Transformer and Evo to learn the regulatory grammar of genomes, enabling functional sequence prediction and rational genome design across organisms.",
-    keywords: ["Foundation Models", "Genomics", "DNA Language Models", "Sequence Design"]
-  },
-  {
-    title: "Deep Learning for Biology",
-    description: "Applying modern deep learning techniques to diverse biological problems, bridging computational methods with experimental validation.",
-    keywords: ["Deep Learning", "Bioinformatics", "Structure Prediction"]
+    title: "Mechanistic Interpretability",
+    description: "The same internal representations, read rather than written. Sparse autoencoders decompose genome foundation models into interpretable features that align with gene function and annotation, and tokenization studies ask how sequence gets encoded in the first place.",
+    keywords: ["Sparse Autoencoders", "Genomic Language Models", "Feature Decomposition", "Representation Analysis"]
   }
 ];
 
@@ -367,10 +362,15 @@ const researchAssistant = [
 
   <!-- Research Section -->
   <section id="research" class="py-12 animate-on-scroll bg-base-alt">
-    <div class="max-w-5xl mx-auto px-6">
+    <div class="max-w-4xl mx-auto px-6">
       <SectionTitle>Research</SectionTitle>
 
-      <div class="grid md:grid-cols-3 gap-4">
+      <p class="text-slate text-sm leading-relaxed max-w-3xl -mt-4 mb-6">
+        I work on the internal representations of biological foundation models — reading out what
+        they encode, and intervening on them to control what they generate.
+      </p>
+
+      <div class="grid md:grid-cols-2 gap-4">
         {researchAreas.map(area => (
           <ResearchCard {...area} />
         ))}
