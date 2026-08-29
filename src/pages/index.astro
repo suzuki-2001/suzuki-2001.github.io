@@ -72,13 +72,19 @@ const publications = [
   }
 ];
 
+type Presentation = {
+  title: string;
+  note?: string;
+  links?: { label: string; url: string }[];
+};
+
 type Conference = {
   title: string;
   type: string | null;
   location: string;
   date: string;
   upcoming: boolean;
-  presentations: string[];
+  presentations: Presentation[];
 };
 
 const conferences: Conference[] = [
@@ -89,7 +95,7 @@ const conferences: Conference[] = [
     date: "Dec 2026",
     upcoming: true,
     presentations: [
-      "Generating diverse protein conformations by repulsion in the conditioning representation"
+      { title: "Generating diverse protein conformations by repulsion in the conditioning representation" }
     ]
   },
   {
@@ -99,7 +105,7 @@ const conferences: Conference[] = [
     date: "Nov 2026",
     upcoming: true,
     presentations: [
-      "Surfacing the alternative conformations latent in deep-learning protein structure predictors"
+      { title: "Surfacing the alternative conformations latent in deep-learning protein structure predictors" }
     ]
   },
   {
@@ -115,10 +121,16 @@ const conferences: Conference[] = [
     type: "Poster / Workshop",
     location: "Sagamihara, Japan",
     date: "Aug 2026",
-    upcoming: true,
+    upcoming: false,
     presentations: [
-      "Expanding conformational sampling in diffusion-based protein structure prediction models at inference time",
-      "Do genomic foundation models learn male sterility? An interpretation with sparse autoencoders"
+      { title: "Expanding conformational sampling in diffusion-based protein structure prediction models at inference time" },
+      {
+        title: "ゲノム基盤モデルは雄性不稔を学んでいるか：Sparse Autoencoder による解釈",
+        note: "Open-call workshop: 生命の理解と設計・制御を目指すバイオ生成AI",
+        links: [
+          { label: "Workshop", url: "https://www.jsbi.org/iibmp2026/program/workshops/#bio-genai" }
+        ]
+      }
     ]
   },
   {
@@ -126,8 +138,18 @@ const conferences: Conference[] = [
     type: "Hands-on / Poster",
     location: "Nagano, Japan",
     date: "Aug 2026",
-    upcoming: true,
-    presentations: []
+    upcoming: false,
+    presentations: [
+      { title: "タンパク質構造予測のペア表現への推論時介入によるアンサンブル拡張" },
+      {
+        title: "ゲノム配列生成AIの仕組みと実践",
+        note: "Teaching assistant for the hands-on lecture by Koichi Higashi (ROIS ALIS)",
+        links: [
+          { label: "Lecture", url: "https://bpwakate.net/summer2026/contents/lecture/32higashi/" },
+          { label: "Materials", url: "https://github.com/GenAIBio/evo2-sae-handson" }
+        ]
+      }
+    ]
   },
   {
     title: "Pacific Symposium on Biocomputing (PSB) 2026",
@@ -136,7 +158,7 @@ const conferences: Conference[] = [
     date: "Jan 2026",
     upcoming: false,
     presentations: [
-      "Predicting alternative protein conformations by perturbing pair representations"
+      { title: "Predicting alternative protein conformations by perturbing pair representations" }
     ]
   },
   {
@@ -146,7 +168,7 @@ const conferences: Conference[] = [
     date: "Dec 2025",
     upcoming: false,
     presentations: [
-      "Steering dynamic protein structures by latent space manipulation of deep generative models"
+      { title: "Steering dynamic protein structures by latent space manipulation of deep generative models" }
     ]
   },
   {
@@ -156,7 +178,7 @@ const conferences: Conference[] = [
     date: "Mar 2023",
     upcoming: false,
     presentations: [
-      "Development of non-destructive, high-throughput metabolite measurement for a Micro-Tom mutant population"
+      { title: "Development of non-destructive, high-throughput metabolite measurement for a Micro-Tom mutant population" }
     ]
   }
 ];
@@ -396,9 +418,24 @@ const researchAssistant = [
                 <summary class="conf-toggle text-xs text-blue cursor-pointer select-none hover:underline">
                   {conf.presentations.length === 1 ? '1 presentation' : `${conf.presentations.length} presentations`}
                 </summary>
-                <ul class="mt-2 space-y-1.5 pl-4 list-disc marker:text-blue/40">
+                <ul class="mt-2 space-y-2 pl-4 list-disc marker:text-blue/40">
                   {conf.presentations.map(p => (
-                    <li class="text-slate text-xs leading-snug">{p}</li>
+                    <li class="text-slate text-xs leading-snug">
+                      {p.title}
+                      {p.note && <span class="block text-slate-light text-[11px] leading-snug mt-0.5">{p.note}</span>}
+                      {p.links && (
+                        <span class="flex flex-wrap gap-x-3 mt-1">
+                          {p.links.map(l => (
+                            <a
+                              href={l.url}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              class="text-blue text-[11px] hover:underline"
+                            >{l.label} &#8599;</a>
+                          ))}
+                        </span>
+                      )}
+                    </li>
                   ))}
                 </ul>
               </details>
