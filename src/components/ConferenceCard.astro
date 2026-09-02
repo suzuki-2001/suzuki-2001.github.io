@@ -1,0 +1,64 @@
+---
+import type { Conference } from '../data/conferences';
+
+type Props = Conference;
+
+const { title, type, location, date, upcoming, presentations } = Astro.props;
+---
+
+<div class={`bg-white border rounded-lg p-5 card-hover ${upcoming ? 'border-green/40' : 'border-border'}`}>
+  <div class="flex justify-between items-start gap-2 mb-1">
+    <h3 class="text-navy font-medium text-sm leading-tight">{title}</h3>
+    <span class={`text-xs font-medium whitespace-nowrap ${upcoming ? 'text-green' : 'text-blue'}`}>{date}</span>
+  </div>
+  <p class="text-slate-light text-xs">{type ? `${type} · ${location}` : location}</p>
+
+  {presentations.length > 0 && (
+    <details class="mt-2">
+      <summary class="conf-toggle text-xs text-blue cursor-pointer select-none hover:underline">
+        {presentations.length === 1 ? '1 presentation' : `${presentations.length} presentations`}
+      </summary>
+      <ul class="mt-2 space-y-2 pl-4 list-disc marker:text-blue/40">
+        {presentations.map(p => (
+          <li class="text-slate text-xs leading-snug">
+            {p.title}
+            {p.note && <span class="block text-slate-light text-[11px] leading-snug mt-0.5">{p.note}</span>}
+            {p.links && (
+              <span class="flex flex-wrap gap-x-3 mt-1">
+                {p.links.map(l => (
+                  <a
+                    href={l.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="text-blue text-[11px] hover:underline"
+                  >{l.label} &#8599;</a>
+                ))}
+              </span>
+            )}
+          </li>
+        ))}
+      </ul>
+    </details>
+  )}
+</div>
+
+<style>
+  .conf-toggle {
+    list-style: none;
+  }
+
+  .conf-toggle::-webkit-details-marker {
+    display: none;
+  }
+
+  .conf-toggle::before {
+    content: '\25b8';
+    display: inline-block;
+    margin-right: 0.35em;
+    transition: transform 0.15s ease;
+  }
+
+  details[open] > .conf-toggle::before {
+    transform: rotate(90deg);
+  }
+</style>
