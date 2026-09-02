@@ -28,13 +28,13 @@ const links = {
 const researchAreas = [
   {
     title: "Generative Models for Biomolecules",
-    description: "Diffusion- and language-model-based generators of protein structure and sequence. I intervene on their internal representations at inference time — rescaling pair representations, adding repulsion in the trunk — to widen the conformational ensembles they produce and to steer design toward function.",
-    keywords: ["Protein Structure Prediction", "Conformational Sampling", "Diffusion Models", "Inference-time Control", "Binder Design"]
+    description: "Deep generative models of protein structure and sequence, and the problem of controlling what they produce: recovering the alternative conformations a confident single prediction hides, then carrying that control into design.",
+    keywords: ["Protein Structure Prediction", "Conformational Ensembles", "Inference-time Control", "Protein Design"]
   },
   {
     title: "Mechanistic Interpretability",
-    description: "The same internal representations, read rather than written. Sparse autoencoders decompose genome foundation models into interpretable features that align with gene function and annotation, and tokenization studies ask how sequence gets encoded in the first place.",
-    keywords: ["Sparse Autoencoders", "Genomic Language Models", "Feature Decomposition", "Representation Analysis"]
+    description: "The same models read from the inside: which features their representations encode, and how far those features correspond to biology we can already name. Reading them is what makes steering them deliberate.",
+    keywords: ["Genomic Language Models", "Sparse Autoencoders", "Feature Decomposition", "Representation Analysis"]
   }
 ];
 
@@ -366,8 +366,8 @@ const researchAssistant = [
       <SectionTitle>Research</SectionTitle>
 
       <p class="text-slate text-sm leading-relaxed max-w-3xl -mt-4 mb-6">
-        I work on the internal representations of biological foundation models — reading out what
-        they encode, and intervening on them to control what they generate.
+        My work sits on the internal representations of biological foundation models: what they
+        encode, and how they can be steered.
       </p>
 
       <div class="grid md:grid-cols-2 gap-4">
