@@ -37,7 +37,7 @@
 
   <!-- Research areas -->
   <text x="600" y="400" text-anchor="middle" font-family="monospace" font-size="16" fill="#cdd6f4" opacity="0.7">
-    Protein Design · Genomic Language Models
+    Generative Models for Biomolecules · Mechanistic Interpretability
   </text>
 
   <!-- University -->
