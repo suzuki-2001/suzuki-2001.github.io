@@ -2,16 +2,17 @@ export const publications = [
   {
     title: "ConforFlux: Particle-Guided Trunk Repulsion for Diverse Protein Conformations",
     authors: "S. Suzuki, T. Amagasa",
-    venue: "bioRxiv",
+    venue: "Advances in Neural Information Processing Systems (NeurIPS 2026)",
+    details: "to appear (Poster)",
     year: "2026",
-    type: "preprint" as const,
+    type: "paper" as const,
     link: "https://doi.org/10.64898/2026.05.16.725138"
   },
   {
     title: "Biasing Conformational Sampling in AlphaFold 3 and Boltz-2 via Pair Representation Scaling",
     authors: "S. Suzuki, T. Amagasa",
     venue: "Journal of Chemical Information and Modeling",
-    details: "Articles ASAP",
+    details: "66(17), 10862–10876",
     year: "2026",
     type: "paper" as const,
     link: "https://doi.org/10.1021/acs.jcim.6c02094"

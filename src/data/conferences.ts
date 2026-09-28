@@ -15,8 +15,18 @@ export type Conference = {
 
 export const conferences: Conference[] = [
   {
+    title: "NeurIPS 2026",
+    type: "Poster",
+    location: "Sydney, Australia",
+    date: "Dec 2026",
+    upcoming: true,
+    presentations: [
+      { title: "ConforFlux: Particle-Guided Trunk Repulsion for Diverse Protein Conformations" }
+    ]
+  },
+  {
     title: "BMB2026 - MBSJ / JBS Joint Meeting",
-    type: null,
+    type: "Oral / Poster",
     location: "Yokohama, Japan",
     date: "Dec 2026",
     upcoming: true,
@@ -36,11 +46,13 @@ export const conferences: Conference[] = [
   },
   {
     title: "CBI Society Annual Meeting 2026",
-    type: null,
+    type: "Oral",
     location: "Tokyo, Japan",
     date: "Oct 2026",
     upcoming: true,
-    presentations: []
+    presentations: [
+      { title: "Inference-time repulsion on trunk representations for sampling alternative protein conformations" }
+    ]
   },
   {
     title: "IIBMP 2026 - JSBi Annual Meeting",
